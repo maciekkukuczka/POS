@@ -15,9 +15,6 @@
 
     <ItemGroup>
         <Folder Include="Areas\Admin"/>
-        <Folder Include="Interfaces"/>
-        <Folder Include="Models\Base"/>
-        <Folder Include="Repositories"/>
         <Folder Include="Services"/>
     </ItemGroup>
 
