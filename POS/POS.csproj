@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <UserSecretsId>aspnet-POS-C620B934-1764-430C-9A9D-E8C1C9299506</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.0-rc.1.20451.17"/>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.0-rc.1.20451.17"/>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.0-rc.1.20451.17"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0-rc.1.20451.13"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0-rc.1.20451.13"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Areas\Admin"/>
+        <Folder Include="Interfaces"/>
+        <Folder Include="Models\Base"/>
+        <Folder Include="Repositories"/>
+        <Folder Include="Services"/>
+    </ItemGroup>
+
+</Project>
