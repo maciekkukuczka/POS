@@ -1,8 +1,15 @@
 ﻿@page "/admin/News"
 <h3>NewsPage</h3>
 
+@if (_showAddNews)
+{
+    <AddNewsComponent></AddNewsComponent>
+}
+
+<button class="btn btn-primary" @onclick="() => { _showAddNews = true; }">Dodaj Newsa</button>
+
 @code {
 
-
+    private bool _showAddNews = false;
 
 }

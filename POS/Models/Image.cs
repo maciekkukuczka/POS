@@ -17,7 +17,7 @@ namespace POS.Models
         public int AppUserId { get; set; }
         public virtual AppUser AppUser { get; set; }
 
-        public virtual ICollection<BlogPost> BlogPosts { get; set; }
+        public virtual ICollection<News> BlogPosts { get; set; }
         public virtual ICollection<CMSPage> CmsPages { get; set; }
     }
 

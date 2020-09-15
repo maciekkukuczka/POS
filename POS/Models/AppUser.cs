@@ -25,7 +25,7 @@ namespace POS.Models
         public virtual Rank Rank { get; set; }
 
         //many-to-one
-        public virtual ICollection<BlogPost> BlogPosts { get; set; }
+        public virtual ICollection<News> BlogPosts { get; set; }
         public virtual ICollection<Address> Addresses { get; set; }
         public virtual ICollection<Contact> Contacts { get; set; }
 

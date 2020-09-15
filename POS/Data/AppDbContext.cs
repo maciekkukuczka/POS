@@ -13,7 +13,7 @@ namespace POS.Data
 
         public DbSet<Address> Addresses { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
-        public DbSet<BlogPost> BlogPosts { get; set; }
+        public DbSet<News> Newses { get; set; }
         public DbSet<Blood> Bloods { get; set; }
         public DbSet<CMSPage> CmsPages { get; set; }
         public DbSet<Contact> Contacts { get; set; }

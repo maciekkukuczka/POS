@@ -6,7 +6,7 @@ using POS.Models.Base;
 namespace POS.Models
 {
 
-    public class BlogPost : BaseEntity
+    public class News : BaseEntity
     {
         public bool IsVisible { get; set; }
 
