@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using POS.Models.Base;
-using POSMVC.Domain.Models;
 
 
 namespace POS.Models
@@ -25,12 +24,12 @@ namespace POS.Models
         public int RankId { get; set; }
         public virtual Rank Rank { get; set; }
 
+        //many-to-one
         public virtual ICollection<BlogPost> BlogPosts { get; set; }
-
         public virtual ICollection<Address> Addresses { get; set; }
-
         public virtual ICollection<Contact> Contacts { get; set; }
 
+        //many-to-many
         public virtual ICollection<CMSPage> CmsPages { get; set; }
         public virtual ICollection<GamesGroup> GamesGroups { get; set; }
     }

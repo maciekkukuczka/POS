@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using POS.Models;
-using POS.Models.Base;
-using POSMVC.Domain.Models;
 
 
 namespace POS.Data
@@ -10,8 +8,8 @@ namespace POS.Data
 
     public class AppDbContext : IdentityDbContext
     {
-        public DbSet<BaseEntity> BaseEntity { get; set; }
-        public DbSet<AuditableEntity> AuditableEntity { get; set; }
+        // public DbSet<BaseEntity> BaseEntity { get; set; }
+        // public DbSet<AuditableEntity> AuditableEntity { get; set; }
 
         public DbSet<Address> Addresses { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
@@ -27,6 +25,12 @@ namespace POS.Data
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
+        }
+
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
         }
     }
 

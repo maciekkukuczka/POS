@@ -19,7 +19,6 @@ namespace POS.Models
         public virtual AppUser AppUser { get; set; }
 
         public virtual ICollection<GamesGroup> GamesGroups { get; set; }
-
         public virtual ICollection<Image> Images { get; set; }
     }
 

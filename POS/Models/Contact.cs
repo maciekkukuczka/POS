@@ -1,8 +1,7 @@
-﻿using POS.Models;
-using POS.Models.Base;
+﻿using POS.Models.Base;
 
 
-namespace POSMVC.Domain.Models
+namespace POS.Models
 {
 
     public class Contact : BaseEntity
