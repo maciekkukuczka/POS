@@ -1,5 +1,5 @@
 ﻿@inherits LayoutComponentBase
-@inject IBootstrapCss BootstrapCss
+@* @inject IBootstrapCss BootstrapCss *@
 
 
 <div class="page">
@@ -19,28 +19,19 @@
     </div>
 </div>
 
-@code {
-    private bool hasBeendone = false;
-
-    // protected override async Task OnAfterRenderAsync(bool firstRender)
-    // {
-    //     // return base.OnAfterRenderAsync(firstRender);
-    //     
-    //     if (!hasBeendone)
-    //     {
-    //         await BootstrapCss.SetBootstrapCss(Theme.Sketchy,"4.3.1");
-    //         hasBeendone = true;
-    //     }
-    //     
-    //     
-    // }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await BootstrapCss.SetBootstrapCss(Theme.Sketchy, "4.3.1");
-    }
-
-
-
-
-}
+@* @code { *@
+@*     private bool hasBeendone = false; *@
+@* *@
+@*     protected override async Task OnAfterRenderAsync(bool firstRender) *@
+@*     { *@
+@*     // return base.OnAfterRenderAsync(firstRender); *@
+@* *@
+@*         if (!hasBeendone) *@
+@*         { *@
+@*             await BootstrapCss.SetBootstrapCss(Theme.Sketchy, "4.3.1"); *@
+@*             hasBeendone = true; *@
+@*         } *@
+@*     } *@
+@* *@
+@* *@
+@* } *@

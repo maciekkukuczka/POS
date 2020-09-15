@@ -34,36 +34,6 @@ namespace POS.Migrations
                 b.ToTable("AppUserGamesGroup");
             });
 
-            modelBuilder.Entity("BlogPostGamesGroup", b =>
-            {
-                b.Property<int>("BlogPostsId")
-                    .HasColumnType("int");
-
-                b.Property<int>("GamesGroupsId")
-                    .HasColumnType("int");
-
-                b.HasKey("BlogPostsId", "GamesGroupsId");
-
-                b.HasIndex("GamesGroupsId");
-
-                b.ToTable("BlogPostGamesGroup");
-            });
-
-            modelBuilder.Entity("BlogPostImage", b =>
-            {
-                b.Property<int>("BlogPostsId")
-                    .HasColumnType("int");
-
-                b.Property<int>("ImagesId")
-                    .HasColumnType("int");
-
-                b.HasKey("BlogPostsId", "ImagesId");
-
-                b.HasIndex("ImagesId");
-
-                b.ToTable("BlogPostImage");
-            });
-
             modelBuilder.Entity("CMSPageImage", b =>
             {
                 b.Property<int>("CmsPagesId")
@@ -77,6 +47,36 @@ namespace POS.Migrations
                 b.HasIndex("ImagesId");
 
                 b.ToTable("CMSPageImage");
+            });
+
+            modelBuilder.Entity("GamesGroupNews", b =>
+            {
+                b.Property<int>("BlogPostsId")
+                    .HasColumnType("int");
+
+                b.Property<int>("GamesGroupsId")
+                    .HasColumnType("int");
+
+                b.HasKey("BlogPostsId", "GamesGroupsId");
+
+                b.HasIndex("GamesGroupsId");
+
+                b.ToTable("GamesGroupNews");
+            });
+
+            modelBuilder.Entity("ImageNews", b =>
+            {
+                b.Property<int>("BlogPostsId")
+                    .HasColumnType("int");
+
+                b.Property<int>("ImagesId")
+                    .HasColumnType("int");
+
+                b.HasKey("BlogPostsId", "ImagesId");
+
+                b.HasIndex("ImagesId");
+
+                b.ToTable("ImageNews");
             });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -354,38 +354,6 @@ namespace POS.Migrations
                 b.ToTable("AppUsers");
             });
 
-            modelBuilder.Entity("POS.Models.BlogPost", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .UseIdentityColumn();
-
-                b.Property<int>("AppUserID")
-                    .HasColumnType("int");
-
-                b.Property<string>("Content")
-                    .HasColumnType("nvarchar(max)");
-
-                b.Property<DateTime>("Date")
-                    .HasColumnType("datetime2");
-
-                b.Property<bool>("IsActive")
-                    .HasColumnType("bit");
-
-                b.Property<bool>("IsVisible")
-                    .HasColumnType("bit");
-
-                b.Property<string>("Title")
-                    .HasColumnType("nvarchar(max)");
-
-                b.HasKey("Id");
-
-                b.HasIndex("AppUserID");
-
-                b.ToTable("BlogPosts");
-            });
-
             modelBuilder.Entity("POS.Models.Blood", b =>
             {
                 b.Property<int>("Id")
@@ -536,6 +504,38 @@ namespace POS.Migrations
                 b.ToTable("Images");
             });
 
+            modelBuilder.Entity("POS.Models.News", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .UseIdentityColumn();
+
+                b.Property<int>("AppUserID")
+                    .HasColumnType("int");
+
+                b.Property<string>("Content")
+                    .HasColumnType("nvarchar(max)");
+
+                b.Property<DateTime>("Date")
+                    .HasColumnType("datetime2");
+
+                b.Property<bool>("IsActive")
+                    .HasColumnType("bit");
+
+                b.Property<bool>("IsVisible")
+                    .HasColumnType("bit");
+
+                b.Property<string>("Title")
+                    .HasColumnType("nvarchar(max)");
+
+                b.HasKey("Id");
+
+                b.HasIndex("AppUserID");
+
+                b.ToTable("Newses");
+            });
+
             modelBuilder.Entity("POS.Models.Rank", b =>
             {
                 b.Property<int>("Id")
@@ -569,9 +569,24 @@ namespace POS.Migrations
                     .IsRequired();
             });
 
-            modelBuilder.Entity("BlogPostGamesGroup", b =>
+            modelBuilder.Entity("CMSPageImage", b =>
             {
-                b.HasOne("POS.Models.BlogPost", null)
+                b.HasOne("POS.Models.CMSPage", null)
+                    .WithMany()
+                    .HasForeignKey("CmsPagesId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.HasOne("POS.Models.Image", null)
+                    .WithMany()
+                    .HasForeignKey("ImagesId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
+
+            modelBuilder.Entity("GamesGroupNews", b =>
+            {
+                b.HasOne("POS.Models.News", null)
                     .WithMany()
                     .HasForeignKey("BlogPostsId")
                     .OnDelete(DeleteBehavior.Cascade)
@@ -584,26 +599,11 @@ namespace POS.Migrations
                     .IsRequired();
             });
 
-            modelBuilder.Entity("BlogPostImage", b =>
+            modelBuilder.Entity("ImageNews", b =>
             {
-                b.HasOne("POS.Models.BlogPost", null)
+                b.HasOne("POS.Models.News", null)
                     .WithMany()
                     .HasForeignKey("BlogPostsId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
-
-                b.HasOne("POS.Models.Image", null)
-                    .WithMany()
-                    .HasForeignKey("ImagesId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
-            });
-
-            modelBuilder.Entity("CMSPageImage", b =>
-            {
-                b.HasOne("POS.Models.CMSPage", null)
-                    .WithMany()
-                    .HasForeignKey("CmsPagesId")
                     .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired();
 
@@ -695,17 +695,6 @@ namespace POS.Migrations
                 b.Navigation("Rank");
             });
 
-            modelBuilder.Entity("POS.Models.BlogPost", b =>
-            {
-                b.HasOne("POS.Models.AppUser", "AppUser")
-                    .WithMany("BlogPosts")
-                    .HasForeignKey("AppUserID")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
-
-                b.Navigation("AppUser");
-            });
-
             modelBuilder.Entity("POS.Models.CMSPage", b =>
             {
                 b.HasOne("POS.Models.AppUser", "AppUser")
@@ -741,6 +730,17 @@ namespace POS.Migrations
                 b.HasOne("POS.Models.AppUser", "AppUser")
                     .WithOne("Avatar")
                     .HasForeignKey("POS.Models.Image", "AppUserId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.Navigation("AppUser");
+            });
+
+            modelBuilder.Entity("POS.Models.News", b =>
+            {
+                b.HasOne("POS.Models.AppUser", "AppUser")
+                    .WithMany("BlogPosts")
+                    .HasForeignKey("AppUserID")
                     .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired();
 

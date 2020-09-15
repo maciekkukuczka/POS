@@ -1,15 +1,42 @@
 ﻿@page "/admin/News"
+@inherits NewsPageBase
+
 <h3>NewsPage</h3>
 
-@if (_showAddNews)
+<button class="btn btn-primary" @onclick="@Add">Dodaj Newsa</button>
+
+
+@if (_showAdd && Items != null && Model != null)
 {
-    <AddNewsComponent></AddNewsComponent>
-}
+    <div class="contaier">
 
-<button class="btn btn-primary" @onclick="() => { _showAddNews = true; }">Dodaj Newsa</button>
+        <div class="row">
+            <div class="col">
 
-@code {
 
-    private bool _showAddNews = false;
+                <EditForm Model="Model" OnValidSubmit="@ValidSubmit">
 
+                    <input type="text" class="form-control" placeholder="Tytuł" @bind="Model.Title">
+                    <input type="datetime" class="form-control" placeholder="Data wpisu" @bind="Model.Date">
+
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" @bind="Model.Content"></textarea>
+
+                    <select class="form-control" @bind="Model.AppUser.Id">
+                        <option value="0"></option>
+                        @foreach (var item in AppUsers)
+                        {
+                            <option value="@item.Id">
+                                @item.NickName
+                            </option>
+                        }
+                    </select>
+
+                    <button class="btn btn-primary" type="button">Anuluj</button>
+                    <button class="btn btn-secondary" type="submit">Zapisz</button>
+
+                </EditForm>
+                @testID
+            </div>
+        </div>
+    </div>
 }
