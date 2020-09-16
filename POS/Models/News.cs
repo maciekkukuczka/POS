@@ -12,7 +12,7 @@ namespace POS.Models
 
         // public byte[] Image { get; set; }
         public string Title { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
         public string Content { get; set; }
 
         public int AppUserID { get; set; }

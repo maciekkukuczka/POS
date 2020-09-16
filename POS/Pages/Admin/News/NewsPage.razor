@@ -1,79 +1,93 @@
 ﻿@page "/admin/News"
 @inherits NewsPageBase
 
-<h3>NewsPage</h3>
-
-<button class="btn btn-primary" @onclick="@Add">Dodaj Newsa</button>
-
-
-@if (_showAdd && Items != null && Model != null && AppUsers != null)
+@if (Items == null || AppUsers == null)
 {
-    <div class="contaier">
+    <em> Ladujem siem...</em>
+}
+else
+{
+    <div class="container-fluid d-flex flex-column">
+        <h3>Newsy</h3>
 
-        <div class="row">
-            <div class="col">
+        <div class="my-3 justify-content-end d-flex">
+            <button class="btn btn-outline-primary @(_isButtonAddVisible ? "" : "disabled")" @onclick="@Add">Dodaj Newsa</button>
+        </div>
 
+        @if (_showAdd)
+        {
+            <div class="contaier ">
 
-                <EditForm Model="Model" OnValidSubmit="@ValidSubmit">
+                <div class="row">
+                    <div class="col">
 
-                    <input type="text" class="form-control" placeholder="Tytuł" @bind="Model.Title">
-                    <input type="datetime" class="form-control" placeholder="Data wpisu" @bind="Model.Date">
+                        <div class=" d-flex justify-content-end">
+                            <button class=" btn btn-outline-primary" type="button" @onclick="Close">X</button>
+                        </div>
 
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" @bind="Model.Content"></textarea>
+                        <EditForm Model="Model" OnValidSubmit="@ValidSubmit">
+                            <input type="text" class="form-control my-3" placeholder="Tytuł" @bind="Model.Title">
 
-                    <select class="form-control" @bind="Model.AppUserID">
-                        <option value="0"></option>
-                        @foreach (var item in AppUsers)
-                        {
-                            <option value="@item.Id">
-                                @item.NickName
-                            </option>
-                        }
-                    </select>
+                            <textarea class="form-control my-3" id="exampleFormControlTextarea1" rows="3" @bind="Model.Content" placeholder="Treść newsa..."></textarea>
 
-                    <button class="btn btn-primary" type="button">Anuluj</button>
-                    <button class="btn btn-secondary" type="submit">Zapisz</button>
+                            <div class="d-flex ">
+                                <input type="date" class="form-control  mr-3" placeholder="Data wpisu" @bind="Model.Date">
 
-                </EditForm>
-                @testID
+                                <select class="form-control " @bind="Model.AppUserID">
+                                    <option value="0" disabled selected>Wybierza autora...</option>
+                                    @foreach (var item in AppUsers)
+                                    {
+                                        <option value="@item.Id">
+                                            @item.NickName
+                                        </option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="my-3 d-flex justify-content-end">
+                                <button class="btn btn-outline-primary " type="button" @onclick="Close">Anuluj</button>
+                                <button class="btn btn-warning ml-3" type="submit">Zapisz</button>
+                            </div>
+                        </EditForm>
+                        @testID
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="contaier">
+
+            <div class="row">
+                <div class="col">
+                    @foreach (var item in Items)
+                    {
+                        <div>@item.Content</div>
+                        <div>@item.AppUser.NickName</div>
+                        <div>@item.AppUser.Blood.Name</div>
+                        <div>@item.AppUser.Blood.Id</div>
+                        <div>@item.AppUser.BloodId</div>
+                    }
+                </div>
+
             </div>
         </div>
-    </div>
 
+        <div class="contaier">
 
-    <div class="contaier">
-
-        <div class="row">
-            <div class="col">
-                @foreach (var item in Items)
-                {
-                    <div>@item.Content</div>
-                    <div>@item.AppUser.NickName</div>
-                    <div>@item.AppUser.Blood.Name</div>
-                    <div>@item.AppUser.Blood.Id</div>
-                    <div>@item.AppUser.BloodId</div>
-                }
-            </div>
-
-        </div>
-    </div>
-
-    <div class="contaier">
-
-        <div class="row">
-            <div class="col">
-                @foreach (var item in AppUsers)
-                {
-                    <div>@item.FirstName</div>
-                    <div>@item.NickName</div>
-                    <div>@item.Blood.Name</div>
-                    <div>@item.Blood.Id</div>
+            <div class="row">
+                <div class="col">
+                    @foreach (var item in AppUsers)
+                    {
+                        <div>@item.FirstName</div>
+                        <div>@item.NickName</div>
+                        <div>@item.Blood.Name</div>
+                        <div>@item.Blood.Id</div>
 @*                     <div>@item.BloodId</div> *@
 @*                     <div>@item.Rank</div> *@
 @*                     <div>@item.LastName</div> *@
-                }
-            </div>
+                    }
+                </div>
 
+            </div>
         </div>
     </div>
 }

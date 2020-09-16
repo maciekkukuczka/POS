@@ -13,6 +13,7 @@ namespace POS.Pages.Admin.News
     public class NewsPageBase : OwningComponentBase
     {
         protected bool _showAdd = false;
+        protected bool _isButtonAddVisible = true;
 
         protected Models.News Model;
         protected List<Models.News> Items;
@@ -47,6 +48,7 @@ namespace POS.Pages.Admin.News
             Model.AppUser = new AppUser();
 
             _showAdd = true;
+            _isButtonAddVisible = false;
         }
 
         protected async Task ValidSubmit()
@@ -56,6 +58,12 @@ namespace POS.Pages.Admin.News
             var id = await _newsService.AddNewsAsync(Model);
 
             _showAdd = false;
+        }
+
+        protected void Close()
+        {
+            _showAdd = false;
+            _isButtonAddVisible = true;
         }
     }
 
