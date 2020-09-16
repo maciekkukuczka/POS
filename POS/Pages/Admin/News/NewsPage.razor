@@ -6,7 +6,7 @@
 <button class="btn btn-primary" @onclick="@Add">Dodaj Newsa</button>
 
 
-@if (_showAdd && Items != null && Model != null)
+@if (_showAdd && Items != null && Model != null && AppUsers != null)
 {
     <div class="contaier">
 
@@ -21,7 +21,7 @@
 
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" @bind="Model.Content"></textarea>
 
-                    <select class="form-control" @bind="Model.AppUser.Id">
+                    <select class="form-control" @bind="Model.AppUserID">
                         <option value="0"></option>
                         @foreach (var item in AppUsers)
                         {
@@ -37,6 +37,43 @@
                 </EditForm>
                 @testID
             </div>
+        </div>
+    </div>
+
+
+    <div class="contaier">
+
+        <div class="row">
+            <div class="col">
+                @foreach (var item in Items)
+                {
+                    <div>@item.Content</div>
+                    <div>@item.AppUser.NickName</div>
+                    <div>@item.AppUser.Blood.Name</div>
+                    <div>@item.AppUser.Blood.Id</div>
+                    <div>@item.AppUser.BloodId</div>
+                }
+            </div>
+
+        </div>
+    </div>
+
+    <div class="contaier">
+
+        <div class="row">
+            <div class="col">
+                @foreach (var item in AppUsers)
+                {
+                    <div>@item.FirstName</div>
+                    <div>@item.NickName</div>
+                    <div>@item.Blood.Name</div>
+                    <div>@item.Blood.Id</div>
+@*                     <div>@item.BloodId</div> *@
+@*                     <div>@item.Rank</div> *@
+@*                     <div>@item.LastName</div> *@
+                }
+            </div>
+
         </div>
     </div>
 }

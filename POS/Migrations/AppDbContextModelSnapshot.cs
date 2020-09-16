@@ -679,7 +679,7 @@ namespace POS.Migrations
             modelBuilder.Entity("POS.Models.AppUser", b =>
             {
                 b.HasOne("POS.Models.Blood", "Blood")
-                    .WithMany()
+                    .WithMany("Bloods")
                     .HasForeignKey("BloodId")
                     .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired();
@@ -739,7 +739,7 @@ namespace POS.Migrations
             modelBuilder.Entity("POS.Models.News", b =>
             {
                 b.HasOne("POS.Models.AppUser", "AppUser")
-                    .WithMany("BlogPosts")
+                    .WithMany("Newses")
                     .HasForeignKey("AppUserID")
                     .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired();
@@ -753,12 +753,14 @@ namespace POS.Migrations
 
                 b.Navigation("Avatar");
 
-                b.Navigation("BlogPosts");
-
                 b.Navigation("CmsPages");
 
                 b.Navigation("Contacts");
+
+                b.Navigation("Newses");
             });
+
+            modelBuilder.Entity("POS.Models.Blood", b => { b.Navigation("Bloods"); });
 
             modelBuilder.Entity("POS.Models.Rank", b => { b.Navigation("AppUsers"); });
 #pragma warning restore 612, 618

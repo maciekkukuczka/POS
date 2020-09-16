@@ -31,6 +31,16 @@ namespace POS.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            // builder.Entity<Image>()
+            //     . (c => c.News)
+            //     .WithMany()
+            //     .WillCascadeOnDelete(false);
+
+            builder.Entity<Image>()
+                .HasOne(x => x.AppUser)
+                .WithOne(x => x.Avatar)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 

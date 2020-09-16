@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using POS.Data;
 using POS.Models;
 using POS.Repositories.Base;
@@ -14,6 +15,13 @@ namespace POS.Services
         }
 
         protected override DbSet<AppUser> DbSet => _db.AppUsers;
+
+
+        public IQueryable<AppUser> GetAllActiveUsers()
+        {
+            return DbSet.Where(x => x.IsActive)
+                .Include(x => x.Blood);
+        }
     }
 
 }
