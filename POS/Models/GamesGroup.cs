@@ -11,7 +11,7 @@ namespace POS.Models
         public string Description { get; set; }
 
         public virtual ICollection<AppUser> AppUsers { get; set; }
-        public virtual ICollection<News> BlogPosts { get; set; }
+        public virtual ICollection<News> Newses { get; set; }
     }
 
 }

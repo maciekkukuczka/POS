@@ -15,14 +15,17 @@ namespace POS.Pages.Admin.News
         protected bool _showAdd = false;
         protected bool _isButtonAddVisible = true;
 
+        //Models
         protected Models.News Model;
         protected List<Models.News> Items;
         protected List<AppUser> AppUsers;
+        protected List<GamesGroup> GamesGroups;
 
+        //Services
         private NewsService _newsService;
         private AppUserService _appUserService;
+        private GamesGroupService _gamesGroupService;
 
-        protected int testID;
 
         protected async override Task OnInitializedAsync()
         {
@@ -30,15 +33,15 @@ namespace POS.Pages.Admin.News
 
             _newsService = (NewsService) ScopedServices.GetRequiredService(typeof(NewsService));
             _appUserService = (AppUserService) ScopedServices.GetRequiredService(typeof(AppUserService));
+            _gamesGroupService = (GamesGroupService) ScopedServices.GetRequiredService(typeof(GamesGroupService));
 
             Items = await _newsService.GetAllActiveNews().ToListAsync();
-
-            // Items = DataSeed.GetNewses();
-
-            //  Model = Items.FirstOrDefault();
-            // Model.AppUser = DataSeed.GetAppUsers().FirstOrDefault();
             AppUsers = await _appUserService.GetAllActiveUsers().ToListAsync();
+            GamesGroups = await _gamesGroupService.GetAllActiveGamesGroups().ToListAsync();
 
+
+            // Model.AppUser = DataSeed.GetAppUsers().FirstOrDefault();
+            // Items = DataSeed.GetNewses();
             // AppUsers = DataSeed.GetAppUsers();
         }
 
@@ -46,6 +49,7 @@ namespace POS.Pages.Admin.News
         {
             Model = new Models.News();
             Model.AppUser = new AppUser();
+            Model.GamesGroups = new List<GamesGroup>();
 
             _showAdd = true;
             _isButtonAddVisible = false;
@@ -56,7 +60,7 @@ namespace POS.Pages.Admin.News
             // Model.AppUser = DataSeed.GetAppUsers().FirstOrDefault();
             // Model.AppUser.Blood=new Blood(){ Name = "duupa"};
             var id = await _newsService.AddNewsAsync(Model);
-
+            Items = await _newsService.GetAllActiveNews().ToListAsync();
             _showAdd = false;
         }
 
@@ -64,6 +68,18 @@ namespace POS.Pages.Admin.News
         {
             _showAdd = false;
             _isButtonAddVisible = true;
+        }
+
+        protected void GamesGroupCheckboxOnChange(GamesGroup gamesGroup, ChangeEventArgs e)
+        {
+            if (!Model.GamesGroups.Contains(gamesGroup))
+            {
+                Model.GamesGroups.Add(gamesGroup);
+            }
+            else
+            {
+                Model.GamesGroups.Remove(gamesGroup);
+            }
         }
     }
 

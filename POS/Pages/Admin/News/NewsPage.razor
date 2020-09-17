@@ -34,7 +34,7 @@ else
                                 <input type="date" class="form-control  mr-3" placeholder="Data wpisu" @bind="Model.Date">
 
                                 <select class="form-control " @bind="Model.AppUserID">
-                                    <option value="0" disabled selected>Wybierza autora...</option>
+                                    <option value="0" disabled selected>Wybierz autora...</option>
                                     @foreach (var item in AppUsers)
                                     {
                                         <option value="@item.Id">
@@ -42,53 +42,80 @@ else
                                         </option>
                                     }
                                 </select>
+
                             </div>
+
+                            <div class="my-3">
+                                @foreach (var gg in GamesGroups)
+                                {
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
+                                               @onchange="@((e) => GamesGroupCheckboxOnChange(gg, e))">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            @gg.Name
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+
                             <div class="my-3 d-flex justify-content-end">
                                 <button class="btn btn-outline-primary " type="button" @onclick="Close">Anuluj</button>
                                 <button class="btn btn-warning ml-3" type="submit">Zapisz</button>
                             </div>
                         </EditForm>
-                        @testID
                     </div>
                 </div>
             </div>
         }
 
-        <div class="contaier">
 
-            <div class="row">
-                <div class="col">
-                    @foreach (var item in Items)
-                    {
-                        <div>@item.Content</div>
-                        <div>@item.AppUser.NickName</div>
-                        <div>@item.AppUser.Blood.Name</div>
-                        <div>@item.AppUser.Blood.Id</div>
-                        <div>@item.AppUser.BloodId</div>
-                    }
-                </div>
-
-            </div>
-        </div>
 
         @* Table *@
         <div class="contaier">
 
-            <div class="row">
-                <div class="col">
-                    @foreach (var item in AppUsers)
-                    {
-                        <div>@item.FirstName</div>
-                        <div>@item.NickName</div>
-                        <div>@item.Blood.Name</div>
-                        <div>@item.Blood.Id</div>
-@*                     <div>@item.BloodId</div> *@
-@*                     <div>@item.Rank</div> *@
-@*                     <div>@item.LastName</div> *@
-                    }
-                </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Lp.</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Data wpisu</th>
+                    <th scope="col">Nick Autora</th>
+                    <th scope="col">Grupa gier</th>
+                    <th scope="col">Opublikowany?</th>
+                    <th scope="col">Zdjęcia</th>
+                </tr>
+                </thead>
+                <tbody>
 
-            </div>
+                @foreach (var item in Items)
+                {
+                    <tr>
+                        <th scope="row">@(Items.IndexOf(item) + 1)</th>
+                        <td>@item.Id</td>
+                        <td>@item.Date</td>
+                        <td>@item.AppUser.NickName</td>
+                        <td>
+                            @foreach (var gamesGroup in item.GamesGroups)
+                            {
+                                <p>
+                                    @gamesGroup.Name
+                                </p>
+                            }
+                        </td>
+                        <td>@item.IsVisible</td>
+                        <td>@item.Images</td>
+                    </tr>
+                }
+
+                @foreach (var i in GamesGroups)
+                {
+                    <p>@i.Name</p>
+                }
+
+                </tbody>
+            </table>
+
+
         </div>
     </div>
 }

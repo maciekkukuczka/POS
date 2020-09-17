@@ -43,6 +43,7 @@ namespace POS
             // services.AddBootstrapCss();
             services.AddScoped<AppUserService>();
             services.AddScoped<NewsService>();
+            services.AddScoped<GamesGroupService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

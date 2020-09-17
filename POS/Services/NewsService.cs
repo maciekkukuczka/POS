@@ -21,7 +21,9 @@ namespace POS.Services
         public IQueryable<News> GetAllActiveNews()
         {
             return DbSet.Where(x => x.IsActive)
-                .Include(x => x.AppUser);
+                    .Include(x => x.AppUser)
+                    .Include(x => x.GamesGroups)
+                ;
         }
 
         public async Task<int> AddNewsAsync(News entity)
