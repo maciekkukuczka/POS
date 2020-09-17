@@ -1,0 +1,47 @@
+﻿@inherits NewsComponentBase
+
+@if (Items == null)
+{
+    <em>Wczytuje...</em>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col d-flex flex-column align-items-center">
+
+                @foreach (var item in Items)
+                {
+                    <div class="card w-75 my-3">
+                        <img class="card-img-top" src="@item.Images" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Title</h5>
+                            <p class="card-text">
+                                @item.Content
+                            </p>
+                            <a href="#" class="btn btn-primary">Więcej...</a>
+                        </div>
+                        <div class="card-footer text-muted d-flex justify-content-between">
+                            <div > @item.Date</div>
+                            <div >
+
+                                @foreach (var itemGamesGroup in item.GamesGroups)
+                                {
+                                    @if (item.GamesGroups.Count > 1)
+                                    {
+                                        <span>@($"{@itemGamesGroup.Name}, ")</span>
+                                    }
+                                    else
+                                    {
+                                        <span>@itemGamesGroup.Name</span>
+                                    }
+                                }
+                            </div>
+                            <div > @item.AppUser.NickName</div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

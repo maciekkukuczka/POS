@@ -38,11 +38,6 @@ namespace POS.Pages.Admin.News
             Items = await _newsService.GetAllActiveNews().ToListAsync();
             AppUsers = await _appUserService.GetAllActiveUsers().ToListAsync();
             GamesGroups = await _gamesGroupService.GetAllActiveGamesGroups().ToListAsync();
-
-
-            // Model.AppUser = DataSeed.GetAppUsers().FirstOrDefault();
-            // Items = DataSeed.GetNewses();
-            // AppUsers = DataSeed.GetAppUsers();
         }
 
         protected void Add()
@@ -66,8 +61,6 @@ namespace POS.Pages.Admin.News
         protected async Task Hide(Models.News item)
         {
             await _newsService.HideAsync(item.Id);
-
-            // Items.Clear();
             await SaveAsync();
             StateHasChanged();
         }
@@ -76,7 +69,7 @@ namespace POS.Pages.Admin.News
         {
             if (Model.Id == 0)
             {
-                var id = await _newsService.AddAsync(Model);
+                var result = await _newsService.AddAsync(Model);
                 Items = await _newsService.GetAllActiveNews().ToListAsync();
                 await SaveAsync();
             }

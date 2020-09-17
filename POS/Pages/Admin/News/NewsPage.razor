@@ -3,7 +3,7 @@
 
 @if (Items == null || AppUsers == null)
 {
-    <em> Ladujem siem...</em>
+    <em> łłłłładujem siem...</em>
 }
 else
 {
@@ -30,11 +30,15 @@ else
 
                             <textarea class="form-control my-3" id="exampleFormControlTextarea1" rows="3" @bind="Model.Content" placeholder="Treść newsa..."></textarea>
 
+                            @* //Date input *@
                             <div class="d-flex ">
                                 <input type="date" class="form-control  mr-3" placeholder="Data wpisu" @bind="Model.Date">
 
-                                <select class="form-control " @bind="Model.AppUserID">
+                                @* //Select Author *@
+                                <select class="form-control mr-3" @bind="Model.AppUserID">
+
                                     <option value="0" disabled selected>Wybierz autora...</option>
+
                                     @foreach (var item in AppUsers)
                                     {
                                         <option value="@item.Id">
@@ -43,8 +47,17 @@ else
                                     }
                                 </select>
 
+                                @* Is Published Checkbox *@
+                                <div class="form-check">
+                                    <input class="form-check-input ml-0" type="checkbox" id="@Model.Id"
+                                           @bind="Model.IsVisible"/>
+                                    <label class="form-check-label p-1" for="@Model.Id">Opublikuj</label>
+                                </div>
+
                             </div>
 
+
+                            @* //Games Groups checkbox *@
                             <div class="my-3 d-flex justify-content-start">
                                 @foreach (var gg in GamesGroups)
                                 {
@@ -74,6 +87,7 @@ else
                                 }
                             </div>
 
+                            @* //Buttons *@
                             <div class="my-3 d-flex justify-content-end">
                                 <button class="btn btn-outline-primary " type="button" @onclick="Close">Anuluj</button>
                                 <button class="btn btn-warning ml-3" type="submit">Zapisz</button>
@@ -137,8 +151,6 @@ else
                         </td>
                     </tr>
                 }
-
-
 
                 </tbody>
             </table>

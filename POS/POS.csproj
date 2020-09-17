@@ -3,6 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
         <UserSecretsId>aspnet-POS-C620B934-1764-430C-9A9D-E8C1C9299506</UserSecretsId>
+        <AssemblyVersion>0.0.1.0</AssemblyVersion>
     </PropertyGroup>
 
     <ItemGroup>
