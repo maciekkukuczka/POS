@@ -48,7 +48,8 @@ namespace POS.Pages.Admin.News
         protected void Add()
         {
             Model = new Models.News();
-            Model.AppUser = new AppUser();
+
+            // Model.AppUser = new AppUser();
             Model.GamesGroups = new List<GamesGroup>();
 
             _showAdd = true;
@@ -66,14 +67,21 @@ namespace POS.Pages.Admin.News
         {
             if (Model.Id == 0)
             {
-                var id = await _newsService.AddNewsAsync(Model);
+                var id = await _newsService.AddAsync(Model);
                 Items = await _newsService.GetAllActiveNews().ToListAsync();
-                _showAdd = false;
+                await Save();
             }
             else
             {
-                //update
+                var result = await _newsService.UpdateAsync(Model);
+                await Save();
             }
+        }
+
+        private async Task Save()
+        {
+            Items = await _newsService.GetAllActiveNews().ToListAsync();
+            _showAdd = false;
         }
 
         protected void Close()

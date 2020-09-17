@@ -28,9 +28,9 @@ namespace POS.Services
 
         public async Task<int> AddNewsAsync(News entity)
         {
-            var exist = _db.AppUsers.FirstOrDefault(x => x.Id == entity.AppUserID && x.IsActive);
-
-            entity.AppUser = exist;
+            // var exist = _db.AppUsers.FirstOrDefault(x => x.Id == entity.AppUserID && x.IsActive);
+            //
+            // entity.AppUser = exist;
             await DbSet.AddAsync(entity);
             await SaveChangesAsync();
 

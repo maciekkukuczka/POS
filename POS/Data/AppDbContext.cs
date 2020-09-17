@@ -37,10 +37,10 @@ namespace POS.Data
             //     .WithMany()
             //     .WillCascadeOnDelete(false);
 
-            builder.Entity<Image>()
-                .HasOne(x => x.AppUser)
-                .WithOne(x => x.Avatar)
-                .OnDelete(DeleteBehavior.Restrict);
+            // builder.Entity<Image>()
+            //     .HasOne(x => x.AppUser)
+            //     .WithOne(x => x.Avatar)
+            //     .OnDelete(DeleteBehavior.Restrict);
         }
     }
 

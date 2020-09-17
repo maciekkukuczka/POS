@@ -7,7 +7,7 @@
 }
 else
 {
-    <div class="container-fluid d-flex flex-column">
+    <div class="container-fluid d-flex flex-column back">
         <h3>Newsy</h3>
 
         <div class="my-3 justify-content-end d-flex">
@@ -16,7 +16,7 @@ else
 
         @if (_showAdd)
         {
-            <div class="contaier ">
+            <div class="contaier sticky-top bg-light">
 
                 <div class="row">
                     <div class="col">
@@ -50,11 +50,11 @@ else
                                 {
                                     @if (Model.GamesGroups.Contains(gg))
                                     {
-                                        <div class="form-check ">
-                                            <input class="form-check-input" type="checkbox" id="@gg.Id"
+                                        <div class="form-check mr-3 ">
+                                            <input class="form-check-input ml-0" type="checkbox" id="@gg.Id"
                                                    @onchange="@((e) => GamesGroupCheckboxOnChange(gg, e))" checked>
 
-                                            <label class="form-check-label" for="@gg.Id">
+                                            <label class="form-check-label p-1" for="@gg.Id">
                                                 @gg.Name
                                             </label>
                                         </div>
@@ -63,10 +63,10 @@ else
                                     else
                                     {
                                         <div class="form-check ">
-                                            <input class="form-check-input" type="checkbox" id="@gg.Id"
+                                            <input class="form-check-input ml-0" type="checkbox" id="@gg.Id"
                                                    @onchange="@((e) => GamesGroupCheckboxOnChange(gg, e))">
 
-                                            <label class="form-check-label" for="@gg.Id">
+                                            <label class="form-check-label p-1" for="@gg.Id">
                                                 @gg.Name
                                             </label>
                                         </div>
