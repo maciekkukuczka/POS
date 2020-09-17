@@ -63,22 +63,31 @@ namespace POS.Pages.Admin.News
             Model = item;
         }
 
+        protected async Task Hide(Models.News item)
+        {
+            await _newsService.HideAsync(item.Id);
+
+            // Items.Clear();
+            await SaveAsync();
+            StateHasChanged();
+        }
+
         protected async Task ValidSubmit()
         {
             if (Model.Id == 0)
             {
                 var id = await _newsService.AddAsync(Model);
                 Items = await _newsService.GetAllActiveNews().ToListAsync();
-                await Save();
+                await SaveAsync();
             }
             else
             {
                 var result = await _newsService.UpdateAsync(Model);
-                await Save();
+                await SaveAsync();
             }
         }
 
-        private async Task Save()
+        private async Task SaveAsync()
         {
             Items = await _newsService.GetAllActiveNews().ToListAsync();
             _showAdd = false;

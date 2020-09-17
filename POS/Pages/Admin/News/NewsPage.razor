@@ -133,7 +133,7 @@ else
                         <td>@item.Images</td>
                         <td>
                             <button class="btn btn-outline-warning" @onclick="() => { Edit(item); }">Edytuj</button>
-                            <button class="btn btn-outline-danger">Usuń</button>
+                            <button class="btn btn-outline-danger" @onclick="() => { Hide(item); }">Usuń</button>
                         </td>
                     </tr>
                 }
