@@ -45,16 +45,32 @@ else
 
                             </div>
 
-                            <div class="my-3">
+                            <div class="my-3 d-flex justify-content-start">
                                 @foreach (var gg in GamesGroups)
                                 {
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
-                                               @onchange="@((e) => GamesGroupCheckboxOnChange(gg, e))">
-                                        <label class="form-check-label" for="defaultCheck1">
-                                            @gg.Name
-                                        </label>
-                                    </div>
+                                    @if (Model.GamesGroups.Contains(gg))
+                                    {
+                                        <div class="form-check ">
+                                            <input class="form-check-input" type="checkbox" id="@gg.Id"
+                                                   @onchange="@((e) => GamesGroupCheckboxOnChange(gg, e))" checked>
+
+                                            <label class="form-check-label" for="@gg.Id">
+                                                @gg.Name
+                                            </label>
+                                        </div>
+                                    }
+
+                                    else
+                                    {
+                                        <div class="form-check ">
+                                            <input class="form-check-input" type="checkbox" id="@gg.Id"
+                                                   @onchange="@((e) => GamesGroupCheckboxOnChange(gg, e))">
+
+                                            <label class="form-check-label" for="@gg.Id">
+                                                @gg.Name
+                                            </label>
+                                        </div>
+                                    }
                                 }
                             </div>
 
@@ -63,6 +79,12 @@ else
                                 <button class="btn btn-warning ml-3" type="submit">Zapisz</button>
                             </div>
                         </EditForm>
+
+                        @foreach (var i in Model.GamesGroups)
+                        {
+                            <p>@i.Name</p>
+                        }
+
                     </div>
                 </div>
             </div>
@@ -79,10 +101,13 @@ else
                     <th scope="col">Lp.</th>
                     <th scope="col">Id</th>
                     <th scope="col">Data wpisu</th>
+                    <th scope="col">Tytuł</th>
+                    <th scope="col">Zawartość</th>
                     <th scope="col">Nick Autora</th>
                     <th scope="col">Grupa gier</th>
                     <th scope="col">Opublikowany?</th>
                     <th scope="col">Zdjęcia</th>
+                    <th scope="col">Akcje</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -93,6 +118,8 @@ else
                         <th scope="row">@(Items.IndexOf(item) + 1)</th>
                         <td>@item.Id</td>
                         <td>@item.Date</td>
+                        <td>@item.Title</td>
+                        <td>@item.Content</td>
                         <td>@item.AppUser.NickName</td>
                         <td>
                             @foreach (var gamesGroup in item.GamesGroups)
@@ -102,15 +129,16 @@ else
                                 </p>
                             }
                         </td>
-                        <td>@item.IsVisible</td>
+                        <td>@(item.IsVisible ? "Tak" : "Nie")</td>
                         <td>@item.Images</td>
+                        <td>
+                            <button class="btn btn-outline-warning" @onclick="() => { Edit(item); }">Edytuj</button>
+                            <button class="btn btn-outline-danger">Usuń</button>
+                        </td>
                     </tr>
                 }
 
-                @foreach (var i in GamesGroups)
-                {
-                    <p>@i.Name</p>
-                }
+
 
                 </tbody>
             </table>

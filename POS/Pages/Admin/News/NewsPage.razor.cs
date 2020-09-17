@@ -55,13 +55,25 @@ namespace POS.Pages.Admin.News
             _isButtonAddVisible = false;
         }
 
+        protected void Edit(Models.News item)
+        {
+            _showAdd = true;
+            _isButtonAddVisible = false;
+            Model = item;
+        }
+
         protected async Task ValidSubmit()
         {
-            // Model.AppUser = DataSeed.GetAppUsers().FirstOrDefault();
-            // Model.AppUser.Blood=new Blood(){ Name = "duupa"};
-            var id = await _newsService.AddNewsAsync(Model);
-            Items = await _newsService.GetAllActiveNews().ToListAsync();
-            _showAdd = false;
+            if (Model.Id == 0)
+            {
+                var id = await _newsService.AddNewsAsync(Model);
+                Items = await _newsService.GetAllActiveNews().ToListAsync();
+                _showAdd = false;
+            }
+            else
+            {
+                //update
+            }
         }
 
         protected void Close()
