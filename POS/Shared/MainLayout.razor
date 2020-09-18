@@ -2,20 +2,25 @@
 @* @inject IBootstrapCss BootstrapCss *@
 
 
-<div class="page d-flex flex-column container-fluid">
+<div class="d-flex flex-column container-fluid">
 
-    <div class="header w-100">
-        <div class="top-row px-4 auth " style="z-index: 2000">
+    <div class="header w-100 d-flex justify-content-between border">
+        <div >
+            <NavMenu/>
+        </div>
+        <div>
             <LoginDisplay/>
         </div>
-
     </div>
+
     <div class="main">
         @Body
     </div>
-</div>
-<div class="footer">
-    <div>&copy;POS @DateTime.Now.Year</div>
+
+    <div class="footer border">
+        <FooterComponent/>
+    </div>
+
 </div>
 
 @* @code { *@
