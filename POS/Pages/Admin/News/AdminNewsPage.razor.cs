@@ -100,6 +100,11 @@ namespace POS.Pages.Admin.News
             _isButtonAddVisible = true;
         }
 
+        protected void DeleteImage(Image image)
+        {
+            Model.Images.Remove(image);
+        }
+
         protected async Task OnInputFileChange(InputFileChangeEventArgs e)
         {
             // var images=new List<Image>();

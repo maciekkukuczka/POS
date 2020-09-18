@@ -1,6 +1,8 @@
 ﻿@page "/admin/News"
 @inherits AdminNewsPageBase
 
+
+
 @if (Items == null || AppUsers == null || Images == null)
 {
     <em>ładujem siem...</em>
@@ -33,10 +35,19 @@ else
                                 <label class="custom-file-label" for="inputGroupFile01">Wybierz zdjęcie...</label>
                             </div>
 
-                            @foreach (var imageUrl in Model.Images)
-                            {
-                                <img src="@imageUrl.Path"/>
-                            }
+                            <div class="d-flex mb-3">
+                                @foreach (var image in Model.Images)
+                                {
+                                    <div class="mr-3">
+                                        <img class="img-fluid rounded img-thumbnail" src="@image.Path"/>
+                                        <button type="button" class="btn btn-outline-primary" style="margin-left: -50px; margin-top: -150px;"
+                                                @onclick="() => DeleteImage(image)">
+                                            X
+                                        </button>
+                                    </div>
+                                }
+                            </div>
+
 
                             @* Title Input *@
                             <div class="mb-3">
@@ -120,10 +131,10 @@ else
                         @*                             <p>@i.Name</p> *@
                         @*                         } *@
 
-                        @foreach (var imageUrl in Images)
-                        {
-                            <img src="@imageUrl.Path"/>
-                        }
+                        @*                         @foreach (var imageUrl in Images) *@
+                        @*                         { *@
+                        @*                             <img src="@imageUrl.Path"/> *@
+                        @*                         } *@
 
                     </div>
                 </div>
