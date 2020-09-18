@@ -21,7 +21,7 @@ namespace POS.Pages.Frontend.News
             // return base.OnInitializedAsync();
 
             _newsService = (NewsService) ScopedServices.GetService(typeof(NewsService));
-            Items = await _newsService.GetAllActiveNews().ToListAsync();
+            Items = await _newsService.GetAllVisibleNews().ToListAsync();
         }
     }
 

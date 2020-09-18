@@ -9,8 +9,6 @@ namespace POS.Models
     public class News : BaseEntity
     {
         public bool IsVisible { get; set; }
-
-        // public byte[] Image { get; set; }
         public string Title { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
         public string Content { get; set; }

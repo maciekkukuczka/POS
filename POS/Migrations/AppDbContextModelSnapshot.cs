@@ -327,6 +327,9 @@ namespace POS.Migrations
                     .HasColumnType("int")
                     .UseIdentityColumn();
 
+                b.Property<int?>("AvatarId")
+                    .HasColumnType("int");
+
                 b.Property<int>("BloodId")
                     .HasColumnType("int");
 
@@ -346,6 +349,8 @@ namespace POS.Migrations
                     .HasColumnType("int");
 
                 b.HasKey("Id");
+
+                b.HasIndex("AvatarId");
 
                 b.HasIndex("BloodId");
 
@@ -475,9 +480,6 @@ namespace POS.Migrations
                     .HasColumnType("int")
                     .UseIdentityColumn();
 
-                b.Property<int>("AppUserId")
-                    .HasColumnType("int");
-
                 b.Property<DateTime>("DateTime")
                     .HasColumnType("datetime2");
 
@@ -497,9 +499,6 @@ namespace POS.Migrations
                     .HasColumnType("nvarchar(max)");
 
                 b.HasKey("Id");
-
-                b.HasIndex("AppUserId")
-                    .IsUnique();
 
                 b.ToTable("Images");
             });
@@ -678,6 +677,10 @@ namespace POS.Migrations
 
             modelBuilder.Entity("POS.Models.AppUser", b =>
             {
+                b.HasOne("POS.Models.Image", "Avatar")
+                    .WithMany()
+                    .HasForeignKey("AvatarId");
+
                 b.HasOne("POS.Models.Blood", "Blood")
                     .WithMany("Bloods")
                     .HasForeignKey("BloodId")
@@ -689,6 +692,8 @@ namespace POS.Migrations
                     .HasForeignKey("RankId")
                     .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired();
+
+                b.Navigation("Avatar");
 
                 b.Navigation("Blood");
 
@@ -725,17 +730,6 @@ namespace POS.Migrations
                 b.Navigation("ContactType");
             });
 
-            modelBuilder.Entity("POS.Models.Image", b =>
-            {
-                b.HasOne("POS.Models.AppUser", "AppUser")
-                    .WithOne("Avatar")
-                    .HasForeignKey("POS.Models.Image", "AppUserId")
-                    .OnDelete(DeleteBehavior.Restrict)
-                    .IsRequired();
-
-                b.Navigation("AppUser");
-            });
-
             modelBuilder.Entity("POS.Models.News", b =>
             {
                 b.HasOne("POS.Models.AppUser", "AppUser")
@@ -750,8 +744,6 @@ namespace POS.Migrations
             modelBuilder.Entity("POS.Models.AppUser", b =>
             {
                 b.Navigation("Addresses");
-
-                b.Navigation("Avatar");
 
                 b.Navigation("CmsPages");
 

@@ -13,7 +13,12 @@ else
                 @foreach (var item in Items)
                 {
                     <div class="card w-75 my-3">
-                        <img class="card-img-top" src="@item.Images" alt="Card image cap">
+                        @if (item.Images != null && item.Images.Count > 0)
+                        {
+                            <div class="w-100 text-center">
+                                <img src="@item.Images.FirstOrDefault().Path" alt="Card image cap">
+                            </div>
+                        }
                         <div class="card-body">
                             <h5 class="card-title">@item.Title</h5>
                             <p class="card-text">

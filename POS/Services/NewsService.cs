@@ -23,6 +23,16 @@ namespace POS.Services
             return DbSet.Where(x => x.IsActive)
                     .Include(x => x.AppUser)
                     .Include(x => x.GamesGroups)
+                    .Include(x => x.Images)
+                ;
+        }
+
+        public IQueryable<News> GetAllVisibleNews()
+        {
+            return DbSet.Where(x => x.IsActive && x.IsVisible)
+                    .Include(x => x.AppUser)
+                    .Include(x => x.GamesGroups)
+                    .Include(x => x.Images)
                 ;
         }
 

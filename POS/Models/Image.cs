@@ -14,8 +14,8 @@ namespace POS.Models
         public string Description { get; set; }
         public DateTime DateTime { get; set; } = DateTime.Now;
 
-        public int AppUserId { get; set; }
-        public virtual AppUser AppUser { get; set; }
+        // public int AppUserId { get; set; }
+        // public virtual AppUser AppUser { get; set; }
 
         public virtual ICollection<News> BlogPosts { get; set; }
         public virtual ICollection<CMSPage> CmsPages { get; set; }

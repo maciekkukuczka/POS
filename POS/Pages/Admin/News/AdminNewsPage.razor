@@ -1,9 +1,9 @@
 ﻿@page "/admin/News"
-@inherits NewsPageBase
+@inherits AdminNewsPageBase
 
-@if (Items == null || AppUsers == null)
+@if (Items == null || AppUsers == null || Images == null)
 {
-    <em> łłłłładujem siem...</em>
+    <em>ładujem siem...</em>
 }
 else
 {
@@ -21,17 +21,36 @@ else
                 <div class="row">
                     <div class="col">
 
-                        <div class=" d-flex justify-content-end">
+                        <div class=" d-flex justify-content-end mb-3">
                             <button class=" btn btn-outline-primary" type="button" @onclick="Close">X</button>
                         </div>
 
                         <EditForm Model="Model" OnValidSubmit="@ValidSubmit">
-                            <input type="text" class="form-control my-3" placeholder="Tytuł" @bind="Model.Title">
 
-                            <textarea class="form-control my-3" id="exampleFormControlTextarea1" rows="3" @bind="Model.Content" placeholder="Treść newsa..."></textarea>
+                            @* Image File input *@
+                            <div class="custom-file input-group mb-3">
+                                <InputFile class="custom-file-input " id="inputGroupFile01" OnChange="OnInputFileChange" multiple/>
+                                <label class="custom-file-label" for="inputGroupFile01">Wybierz zdjęcie...</label>
+                            </div>
+
+                            @foreach (var imageUrl in Model.Images)
+                            {
+                                <img src="@imageUrl.Path"/>
+                            }
+
+                            @* Title Input *@
+                            <div class="mb-3">
+                                <input type="text" class="form-control " placeholder="Tytuł" @bind="Model.Title">
+                            </div>
+
+                            @* Content textarea *@
+
+                            <div class="mb-3">
+                                <textarea class="form-control my-3" id="exampleFormControlTextarea1" rows="3" @bind="Model.Content" placeholder="Treść newsa..."></textarea>
+                            </div>
 
                             @* //Date input *@
-                            <div class="d-flex ">
+                            <div class="d-flex mb-3">
                                 <input type="date" class="form-control  mr-3" placeholder="Data wpisu" @bind="Model.Date">
 
                                 @* //Select Author *@
@@ -94,9 +113,16 @@ else
                             </div>
                         </EditForm>
 
-                        @foreach (var i in Model.GamesGroups)
+
+                        @* //services methods - to delete *@
+                        @*                         @foreach (var i in Model.GamesGroups) *@
+                        @*                         { *@
+                        @*                             <p>@i.Name</p> *@
+                        @*                         } *@
+
+                        @foreach (var imageUrl in Images)
                         {
-                            <p>@i.Name</p>
+                            <img src="@imageUrl.Path"/>
                         }
 
                     </div>
@@ -144,7 +170,12 @@ else
                             }
                         </td>
                         <td>@(item.IsVisible ? "Tak" : "Nie")</td>
-                        <td>@item.Images</td>
+                        <td>
+                            @foreach (var image in item.Images)
+                            {
+                                <img src="@image.Path">
+                            }
+                        </td>
                         <td>
                             <button class="btn btn-outline-warning" @onclick="() => { Edit(item); }">Edytuj</button>
                             <button class="btn btn-outline-danger" @onclick="() => { Hide(item); }">Usuń</button>
