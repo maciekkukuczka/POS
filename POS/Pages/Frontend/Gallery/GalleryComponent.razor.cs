@@ -29,7 +29,9 @@ namespace POS.Pages.Frontend.News
 
         protected void ExpandGallery(Models.Gallery gallery)
         {
-            isGalleryExpanded = !isGalleryExpanded;
+            gallery.Class = gallery.Class == "gallery-expanded" ? "" : "gallery-expanded";
+
+            // isGalleryExpanded = !isGalleryExpanded;
         }
     }
 

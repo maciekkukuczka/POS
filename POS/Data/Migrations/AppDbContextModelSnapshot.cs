@@ -307,6 +307,9 @@ namespace POS.Migrations
                 b.Property<string>("City")
                     .HasColumnType("nvarchar(max)");
 
+                b.Property<string>("Class")
+                    .HasColumnType("nvarchar(max)");
+
                 b.Property<string>("Code")
                     .HasColumnType("nvarchar(max)");
 
@@ -348,6 +351,9 @@ namespace POS.Migrations
                 b.Property<int>("BloodId")
                     .HasColumnType("int");
 
+                b.Property<string>("Class")
+                    .HasColumnType("nvarchar(max)");
+
                 b.Property<string>("FirstName")
                     .HasColumnType("nvarchar(max)");
 
@@ -381,6 +387,9 @@ namespace POS.Migrations
                     .HasColumnType("int")
                     .UseIdentityColumn();
 
+                b.Property<string>("Class")
+                    .HasColumnType("nvarchar(max)");
+
                 b.Property<bool>("IsActive")
                     .HasColumnType("bit");
 
@@ -401,6 +410,9 @@ namespace POS.Migrations
 
                 b.Property<int>("AppUserId")
                     .HasColumnType("int");
+
+                b.Property<string>("Class")
+                    .HasColumnType("nvarchar(max)");
 
                 b.Property<string>("Description")
                     .HasColumnType("nvarchar(max)");
@@ -431,6 +443,9 @@ namespace POS.Migrations
                 b.Property<int>("AppUserId")
                     .HasColumnType("int");
 
+                b.Property<string>("Class")
+                    .HasColumnType("nvarchar(max)");
+
                 b.Property<string>("ContactInformation")
                     .HasColumnType("nvarchar(max)");
 
@@ -456,6 +471,9 @@ namespace POS.Migrations
                     .HasColumnType("int")
                     .UseIdentityColumn();
 
+                b.Property<string>("Class")
+                    .HasColumnType("nvarchar(max)");
+
                 b.Property<bool>("IsActive")
                     .HasColumnType("bit");
 
@@ -473,6 +491,9 @@ namespace POS.Migrations
                     .ValueGeneratedOnAdd()
                     .HasColumnType("int")
                     .UseIdentityColumn();
+
+                b.Property<string>("Class")
+                    .HasColumnType("nvarchar(max)");
 
                 b.Property<bool>("IsActive")
                     .HasColumnType("bit");
@@ -495,6 +516,9 @@ namespace POS.Migrations
                     .HasColumnType("int")
                     .UseIdentityColumn();
 
+                b.Property<string>("Class")
+                    .HasColumnType("nvarchar(max)");
+
                 b.Property<string>("Description")
                     .HasColumnType("nvarchar(max)");
 
@@ -515,6 +539,9 @@ namespace POS.Migrations
                     .ValueGeneratedOnAdd()
                     .HasColumnType("int")
                     .UseIdentityColumn();
+
+                b.Property<string>("Class")
+                    .HasColumnType("nvarchar(max)");
 
                 b.Property<DateTime>("DateTime")
                     .HasColumnType("datetime2");
@@ -549,6 +576,9 @@ namespace POS.Migrations
                 b.Property<int>("AppUserID")
                     .HasColumnType("int");
 
+                b.Property<string>("Class")
+                    .HasColumnType("nvarchar(max)");
+
                 b.Property<string>("Content")
                     .HasColumnType("nvarchar(max)");
 
@@ -577,6 +607,9 @@ namespace POS.Migrations
                     .ValueGeneratedOnAdd()
                     .HasColumnType("int")
                     .UseIdentityColumn();
+
+                b.Property<string>("Class")
+                    .HasColumnType("nvarchar(max)");
 
                 b.Property<bool>("IsActive")
                     .HasColumnType("bit");
