@@ -592,7 +592,9 @@ namespace POS.Migrations
                     .HasColumnType("bit");
 
                 b.Property<string>("Title")
-                    .HasColumnType("nvarchar(max)");
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnType("nvarchar(100)");
 
                 b.HasKey("Id");
 

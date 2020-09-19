@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using POS.Models.Base;
 
 
@@ -7,7 +8,7 @@ namespace POS.Models
 
     public class AppUser : BaseEntity
     {
-        public string NickName { get; set; }
+        [Required] public string NickName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
 

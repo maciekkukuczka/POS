@@ -28,6 +28,9 @@ else
                         </div>
 
                         <EditForm Model="Model" OnValidSubmit="@ValidSubmit">
+                            <ObjectGraphDataAnnotationsValidator/>
+                            @* <DataAnnotationsValidator/> *@
+                            <ValidationSummary/>
 
                             @* Image File input *@
                             <div class="custom-file input-group mb-3">
@@ -53,21 +56,23 @@ else
 
                             @* Title Input *@
                             <div class="mb-3">
-                                <input type="text" class="form-control " placeholder="Tytuł" @bind="Model.Title">
+                                <InputText class="form-control " placeholder="Tytuł" @bind-Value="Model.Title"/>
+                                <ValidationMessage For="() => Model.Title"/>
                             </div>
 
                             @* Content textarea *@
-
                             <div class="mb-3">
-                                <textarea class="form-control my-3" id="exampleFormControlTextarea1" rows="3" @bind="Model.Content" placeholder="Treść newsa..."></textarea>
+                                <InputTextArea class="form-control my-3" id="exampleFormControlTextarea1" rows="3"
+                                               @bind-Value="Model.Content" placeholder="Treść newsa...">
+                                </InputTextArea>
                             </div>
 
                             @* //Date input *@
                             <div class="d-flex mb-3">
-                                <input type="date" class="form-control  mr-3" placeholder="Data wpisu" @bind="Model.Date">
+                                <InputDate class="form-control  mr-3" placeholder="Data wpisu" @bind-Value="Model.Date"/>
 
                                 @* //Select Author *@
-                                <select class="form-control mr-3" @bind="Model.AppUserID">
+                                <InputSelect class="form-control mr-3" @bind-Value="Model.AppUserID">
 
                                     <option value="0" disabled selected>Wybierz autora...</option>
 
@@ -77,13 +82,16 @@ else
                                             @item.NickName
                                         </option>
                                     }
-                                </select>
+                                </InputSelect>
+                                @* <ValidationMessage  For="Model.AppUserID"/> *@
 
                                 @* Is Published Checkbox *@
                                 <div class="form-check">
-                                    <input class="form-check-input ml-0" type="checkbox" id="@Model.Id"
-                                           @bind="Model.IsVisible"/>
-                                    <label class="form-check-label p-1" for="@Model.Id">Opublikuj</label>
+                                    <label class="form-check-label p-1" for="@Model.Id">
+                                        <InputCheckbox class="form-check-input ml-0" type="checkbox" id="@Model.Id"
+                                                       @bind-Value="Model.IsVisible"/>
+                                        Opublikuj
+                                    </label>
                                 </div>
 
                             </div>
@@ -97,7 +105,8 @@ else
                                     {
                                         <div class="form-check mr-3 ">
                                             <input class="form-check-input ml-0" type="checkbox" id="@gg.Id"
-                                                   @onchange="@((e) => GamesGroupCheckboxOnChange(gg, e))" checked>
+                                                   @onchange="@((e) => GamesGroupCheckboxOnChange(gg, e))"
+                                                   checked>
 
                                             <label class="form-check-label p-1" for="@gg.Id">
                                                 @gg.Name
@@ -107,7 +116,7 @@ else
 
                                     else
                                     {
-                                        <div class="form-check ">
+                                        <div class="form-check  mr-3">
                                             <input class="form-check-input ml-0" type="checkbox" id="@gg.Id"
                                                    @onchange="@((e) => GamesGroupCheckboxOnChange(gg, e))">
 
