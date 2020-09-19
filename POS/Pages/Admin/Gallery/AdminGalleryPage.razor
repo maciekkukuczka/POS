@@ -1,3 +1,34 @@
 ﻿@page "/Admin/Gallery"
 @inherits AdminGalleryPageBase
-<h3>AdminGalleryPage</h3>
+
+<h3>Galeria</h3>
+
+
+@if (Items == null || Model == null)
+{
+    <em>ładujem siem...</em>
+}
+else
+{
+@* Image File input *@
+    <div class="custom-file input-group mb-3">
+        <InputFile class="custom-file-input " id="inputGroupFile01" OnChange="OnInputFileChange" multiple/>
+        <label class="custom-file-label" for="inputGroupFile01">Wybierz zdjęcie...</label>
+    </div>
+
+    @if (Model.Images != null)
+    {
+        <div class="d-flex mb-3">
+            @foreach (var image in Model.Images)
+            {
+                <div class="mr-3">
+                    <img class="img-fluid rounded img-thumbnail" src="@image.Path"/>
+                    <button type="button" class="btn btn-outline-primary" style="margin-left: -50px; margin-top: -150px;"
+                            @onclick="() => DeleteImage(image)">
+                        X
+                    </button>
+                </div>
+            }
+        </div>
+    }
+}

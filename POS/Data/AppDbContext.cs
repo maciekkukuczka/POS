@@ -21,6 +21,7 @@ namespace POS.Data
         public DbSet<GamesGroup> GamesGroups { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Rank> Ranks { get; set; }
+        public DbSet<Gallery> Galleries { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)

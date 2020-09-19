@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using POS.Logic.Gallery;
 using POS.Models;
 using POS.Services;
 
@@ -107,32 +107,25 @@ namespace POS.Pages.Admin.News
 
         protected async Task OnInputFileChange(InputFileChangeEventArgs e)
         {
-            // var images=new List<Image>();
+            var imagesDataUrls = await ImageUploadProcessor.GetDataUrlsFromUploadedImagesAsync(e);
 
-            var imagefiles = e.GetMultipleFiles();
-
-            var format = "image/png";
-
-            foreach (var imagefile in imagefiles)
+            imagesDataUrls.ForEach(x =>
             {
-                var resizedImageFile = await imagefile.RequestImageFileAsync(format, 200, 200);
-                var buffer = new byte[resizedImageFile.Size];
+                Model.Images.Add(
+                    new Image()
+                    {
+                        Path = x
+                    }
+                );
+            });
 
-                await resizedImageFile.OpenReadStream().ReadAsync(buffer);
+            //my image object
+            // var image = new Image();
+            // image.Path = imageDataUrl;
 
-                var imageDataUrl = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
+            // image.AppUserId = 1;
 
-                // ImageUrls.Add(imageDataUrl);
-
-                //my image object
-                var image = new Image();
-                image.Path = imageDataUrl;
-
-                // image.AppUserId = 1;
-                Model.Images.Add(image);
-
-                // var result = await _imageService.AddAsync(image);
-            }
+            // var result = await _imageService.AddAsync(image);
         }
 
         protected void GamesGroupCheckboxOnChange(GamesGroup gamesGroup, ChangeEventArgs e)

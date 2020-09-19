@@ -49,6 +49,21 @@ namespace POS.Migrations
                 b.ToTable("CMSPageImage");
             });
 
+            modelBuilder.Entity("GalleryImage", b =>
+            {
+                b.Property<int>("GalleriesId")
+                    .HasColumnType("int");
+
+                b.Property<int>("ImagesId")
+                    .HasColumnType("int");
+
+                b.HasKey("GalleriesId", "ImagesId");
+
+                b.HasIndex("ImagesId");
+
+                b.ToTable("GalleryImage");
+            });
+
             modelBuilder.Entity("GamesGroupNews", b =>
             {
                 b.Property<int>("GamesGroupsId")
@@ -452,6 +467,24 @@ namespace POS.Migrations
                 b.ToTable("ContactTypes");
             });
 
+            modelBuilder.Entity("POS.Models.Gallery", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .UseIdentityColumn();
+
+                b.Property<bool>("IsActive")
+                    .HasColumnType("bit");
+
+                b.Property<string>("Name")
+                    .HasColumnType("nvarchar(max)");
+
+                b.HasKey("Id");
+
+                b.ToTable("Galleries");
+            });
+
             modelBuilder.Entity("POS.Models.GamesGroup", b =>
             {
                 b.Property<int>("Id")
@@ -573,6 +606,21 @@ namespace POS.Migrations
                 b.HasOne("POS.Models.CMSPage", null)
                     .WithMany()
                     .HasForeignKey("CmsPagesId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.HasOne("POS.Models.Image", null)
+                    .WithMany()
+                    .HasForeignKey("ImagesId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
+
+            modelBuilder.Entity("GalleryImage", b =>
+            {
+                b.HasOne("POS.Models.Gallery", null)
+                    .WithMany()
+                    .HasForeignKey("GalleriesId")
                     .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired();
 
