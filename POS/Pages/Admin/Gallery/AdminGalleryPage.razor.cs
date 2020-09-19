@@ -14,8 +14,11 @@ namespace POS.Pages.Admin.Gallery
 
     public class AdminGalleryPageBase : OwningComponentBase
     {
+        protected bool _showAdd = false;
+        protected bool _isButtonAddVisible = true;
+
         //Models
-        protected Models.Gallery Model = new Models.Gallery();
+        protected Models.Gallery Model;
         protected List<Models.Gallery> Items;
 
         //Services
@@ -29,15 +32,78 @@ namespace POS.Pages.Admin.Gallery
             Items = await _galleryService.GetAllActiveGalleries().ToListAsync();
         }
 
-        protected async Task OnInputFileChange(InputFileChangeEventArgs arg)
+        protected void Add()
         {
-            var imagesDataUrls = await ImageUploadProcessor.GetDataUrlsFromUploadedImagesAsync(arg);
+            Model = new Models.Gallery();
+            Model.Images = new List<Image>();
+
+            _showAdd = true;
+            _isButtonAddVisible = false;
         }
 
-        protected Task DeleteImage(Image image)
+        protected void Edit(Models.Gallery item)
         {
-            return Task.CompletedTask;
+            _showAdd = true;
+            _isButtonAddVisible = false;
+            Model = item;
         }
+
+        protected async Task Hide(Models.Gallery item)
+        {
+            await _galleryService.HideAsync(item.Id);
+            await SaveAsync();
+            StateHasChanged();
+        }
+
+        protected async Task ValidSubmit()
+        {
+            if (Model.Id == 0)
+            {
+                var result = await _galleryService.AddAsync(Model);
+                await SaveAsync();
+            }
+            else
+            {
+                var result = await _galleryService.UpdateAsync(Model);
+                await SaveAsync();
+            }
+        }
+
+        private async Task SaveAsync()
+        {
+            Items = await _galleryService.GetAllActiveGalleries().ToListAsync();
+            _showAdd = false;
+        }
+
+        protected void Close()
+        {
+            _showAdd = false;
+            _isButtonAddVisible = true;
+        }
+
+        protected void DeleteImage(Image image)
+        {
+            Model.Images.Remove(image);
+        }
+
+
+        protected async Task OnInputFileChange(InputFileChangeEventArgs arg)
+        {
+            // Model=new Models.Gallery();
+            var imagesDataUrls = await ImageUploadProcessor.GetDataUrlsFromUploadedImagesAsync(arg);
+            imagesDataUrls.ForEach(x =>
+            {
+                Model.Images.Add(
+                    new Image()
+                    {
+                        Path = x
+                    }
+                );
+            });
+
+            // StateHasChanged();
+        }
+
 
         //Data Seed
         void AddGallery()

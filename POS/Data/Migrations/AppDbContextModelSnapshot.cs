@@ -477,6 +477,9 @@ namespace POS.Migrations
                 b.Property<bool>("IsActive")
                     .HasColumnType("bit");
 
+                b.Property<bool>("IsVisible")
+                    .HasColumnType("bit");
+
                 b.Property<string>("Name")
                     .HasColumnType("nvarchar(max)");
 

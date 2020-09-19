@@ -1,34 +1,120 @@
 ﻿@page "/Admin/Gallery"
 @inherits AdminGalleryPageBase
 
-<h3>Galeria</h3>
 
 
-@if (Items == null || Model == null)
+@if (Items == null /*|| Model == null*/)
 {
     <em>ładujem siem...</em>
 }
 else
 {
-@* Image File input *@
-    <div class="custom-file input-group mb-3">
-        <InputFile class="custom-file-input " id="inputGroupFile01" OnChange="OnInputFileChange" multiple/>
-        <label class="custom-file-label" for="inputGroupFile01">Wybierz zdjęcie...</label>
-    </div>
+    <div class="container-fluid d-flex flex-column back">
+        <h3>Galeria</h3>
 
-    @if (Model.Images != null)
-    {
-        <div class="d-flex mb-3">
-            @foreach (var image in Model.Images)
-            {
-                <div class="mr-3">
-                    <img class="img-fluid rounded img-thumbnail" src="@image.Path"/>
-                    <button type="button" class="btn btn-outline-primary" style="margin-left: -50px; margin-top: -150px;"
-                            @onclick="() => DeleteImage(image)">
-                        X
-                    </button>
-                </div>
-            }
+        <div class="my-3 justify-content-end d-flex">
+            <button class="btn btn-outline-primary @(_isButtonAddVisible ? "" : "disabled")" @onclick="@Add">Dodaj galerię</button>
         </div>
-    }
+
+        @if (_showAdd)
+        {
+            <div class="contaier sticky-top bg-light">
+
+                <div class="row">
+                    <div class="col">
+
+                        <div class=" d-flex justify-content-end mb-3">
+                            <button class=" btn btn-outline-primary" type="button" @onclick="Close">X</button>
+                        </div>
+
+                        <EditForm Model="Model" OnValidSubmit="@ValidSubmit">
+
+
+                            @* Name Input *@
+                            <div class="mb-3">
+                                <input type="text" class="form-control " placeholder="Tytuł" @bind="Model.Name">
+                            </div>
+
+                            @* Image File input *@
+                            <div class="custom-file input-group mb-3">
+                                <InputFile class="custom-file-input " id="inputGroupFile01" OnChange="OnInputFileChange" multiple/>
+                                <label class="custom-file-label" for="inputGroupFile01">Wybierz zdjęcie...</label>
+                            </div>
+
+                            @if (Model.Images != null)
+                            {
+                                <div class="d-flex mb-3">
+                                    @foreach (var image in Model.Images)
+                                    {
+                                        <div class="mr-3">
+                                            <img class="img-fluid rounded img-thumbnail" src="@image.Path"/>
+                                            <button type="button" class="btn btn-outline-primary" style="margin-left: -50px; margin-top: -150px;"
+                                                    @onclick="() => DeleteImage(image)">
+                                                X
+                                            </button>
+                                        </div>
+                                    }
+                                </div>
+                            }
+
+                            @* Is Published Checkbox *@
+                            <div class="form-check">
+                                <input class="form-check-input ml-0" type="checkbox" id="@Model.Id"
+                                       @bind="Model.IsVisible"/>
+                                <label class="form-check-label p-1" for="@Model.Id">Opublikuj</label>
+                            </div>
+
+                            @* //Buttons *@
+                            <div class="my-3 d-flex justify-content-end">
+                                <button class="btn btn-outline-primary " type="button" @onclick="Close">Anuluj</button>
+                                <button class="btn btn-warning ml-3" type="submit">Zapisz</button>
+                            </div>
+                        </EditForm>
+
+                    </div>
+                </div>
+            </div>
+        }
+
+        @* Table *@
+        <div class="contaier">
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Lp.</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nazwa galerii</th>
+                    <th scope="col">Zdjęcia</th>
+                    <th scope="col">Opublikowana</th>
+                    <th scope="col">Akcje</th>
+
+                </tr>
+                </thead>
+                <tbody>
+
+                @foreach (var item in Items)
+                {
+                    <tr>
+                        <th scope="row">@(Items.IndexOf(item) + 1)</th>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>
+                            @foreach (var image in item.Images)
+                            {
+                                <img src="@image.Path">
+                            }
+                        </td>
+                        <td>@(item.IsVisible ? "Tak" : "Nie")</td>
+                        <td>
+                            <button class="btn btn-outline-warning" @onclick="() => { Edit(item); }">Edytuj</button>
+                            <button class="btn btn-outline-danger" @onclick="() => { Hide(item); }">Usuń</button>
+                        </td>
+                    </tr>
+                }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
 }
