@@ -23,6 +23,20 @@ namespace POS.Services
                 .Include(x => x.Images)
                 .AsQueryable();
         }
+
+        public IQueryable<Gallery> GetVisibleGalleries()
+        {
+            return DbSet.Where(x => x.IsActive && x.IsVisible)
+                .Include(x => x.Images)
+                .AsQueryable();
+        }
+
+        public IQueryable<Gallery> GetGalleries(bool isVisible, bool isActive = true)
+        {
+            return DbSet.Where(x => x.IsActive == isActive && x.IsVisible == isActive)
+                .Include(x => x.Images)
+                .AsQueryable();
+        }
     }
 
 }

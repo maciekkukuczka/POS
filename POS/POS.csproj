@@ -21,10 +21,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Pages\Frontend\Gallery"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <_ContentIncludedByDefault Remove="Shared\LoginDisplay.razor"/>
         <_ContentIncludedByDefault Remove="Pages\Shared\LoginDisplay.razor"/>
     </ItemGroup>
