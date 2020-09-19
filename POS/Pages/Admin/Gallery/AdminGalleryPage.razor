@@ -28,11 +28,14 @@ else
                         </div>
 
                         <EditForm Model="Model" OnValidSubmit="@ValidSubmit">
-
+                            <ObjectGraphDataAnnotationsValidator/>
+                            @* <DataAnnotationsValidator/> *@
+                            <ValidationSummary/>
 
                             @* Name Input *@
                             <div class="mb-3">
                                 <input type="text" class="form-control " placeholder="Tytuł" @bind="Model.Name">
+                                <ValidationMessage For="() => Model.Name"/>
                             </div>
 
                             @* Image File input *@
@@ -83,7 +86,7 @@ else
                 <thead>
                 <tr>
                     <th scope="col">Lp.</th>
-                    <th scope="col">Id</th>
+                    @* <th scope="col">Id</th> *@
                     <th scope="col">Nazwa galerii</th>
                     <th scope="col">Zdjęcia</th>
                     <th scope="col">Opublikowana</th>
@@ -97,7 +100,7 @@ else
                 {
                     <tr>
                         <th scope="row">@(Items.IndexOf(item) + 1)</th>
-                        <td>@item.Id</td>
+                        @* <td>@item.Id</td> *@
                         <td>@item.Name</td>
                         <td>
                             @foreach (var image in item.Images)

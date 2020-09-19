@@ -9,10 +9,11 @@ using POS.Models;
 using POS.Services;
 
 
-namespace POS.Pages.Admin.News
+namespace POS.Pages.Admin.Team
 {
 
-    public class AdminNewsPageBase : OwningComponentBase
+    public class AdminTeamPageBase : OwningComponentBase
+
     {
         protected bool _showAdd = false;
         protected bool _isButtonAddVisible = true;
