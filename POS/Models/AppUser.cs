@@ -8,7 +8,8 @@ namespace POS.Models
 
     public class AppUser : BaseEntity
     {
-        [Required] public string NickName { get; set; }
+        [Required(ErrorMessage = "Pole 'NICK' jest wymagane!")]
+        public string NickName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
 

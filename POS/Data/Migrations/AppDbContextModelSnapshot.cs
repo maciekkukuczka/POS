@@ -322,6 +322,9 @@ namespace POS.Migrations
                 b.Property<bool>("IsActive")
                     .HasColumnType("bit");
 
+                b.Property<bool>("IsVisible")
+                    .HasColumnType("bit");
+
                 b.Property<string>("Line1")
                     .HasColumnType("nvarchar(max)");
 
@@ -360,10 +363,14 @@ namespace POS.Migrations
                 b.Property<bool>("IsActive")
                     .HasColumnType("bit");
 
+                b.Property<bool>("IsVisible")
+                    .HasColumnType("bit");
+
                 b.Property<string>("LastName")
                     .HasColumnType("nvarchar(max)");
 
                 b.Property<string>("NickName")
+                    .IsRequired()
                     .HasColumnType("nvarchar(max)");
 
                 b.Property<int>("RankId")
@@ -393,6 +400,9 @@ namespace POS.Migrations
                 b.Property<bool>("IsActive")
                     .HasColumnType("bit");
 
+                b.Property<bool>("IsVisible")
+                    .HasColumnType("bit");
+
                 b.Property<string>("Name")
                     .HasColumnType("nvarchar(max)");
 
@@ -418,6 +428,9 @@ namespace POS.Migrations
                     .HasColumnType("nvarchar(max)");
 
                 b.Property<bool>("IsActive")
+                    .HasColumnType("bit");
+
+                b.Property<bool>("IsVisible")
                     .HasColumnType("bit");
 
                 b.Property<string>("PageName")
@@ -455,6 +468,9 @@ namespace POS.Migrations
                 b.Property<bool>("IsActive")
                     .HasColumnType("bit");
 
+                b.Property<bool>("IsVisible")
+                    .HasColumnType("bit");
+
                 b.HasKey("Id");
 
                 b.HasIndex("AppUserId");
@@ -475,6 +491,9 @@ namespace POS.Migrations
                     .HasColumnType("nvarchar(max)");
 
                 b.Property<bool>("IsActive")
+                    .HasColumnType("bit");
+
+                b.Property<bool>("IsVisible")
                     .HasColumnType("bit");
 
                 b.Property<string>("Name")
@@ -502,6 +521,7 @@ namespace POS.Migrations
                     .HasColumnType("bit");
 
                 b.Property<string>("Name")
+                    .IsRequired()
                     .HasColumnType("nvarchar(max)");
 
                 b.HasKey("Id");
@@ -525,7 +545,11 @@ namespace POS.Migrations
                 b.Property<bool>("IsActive")
                     .HasColumnType("bit");
 
+                b.Property<bool>("IsVisible")
+                    .HasColumnType("bit");
+
                 b.Property<string>("Name")
+                    .IsRequired()
                     .HasColumnType("nvarchar(max)");
 
                 b.HasKey("Id");
@@ -553,6 +577,9 @@ namespace POS.Migrations
                     .HasColumnType("varbinary(max)");
 
                 b.Property<bool>("IsActive")
+                    .HasColumnType("bit");
+
+                b.Property<bool>("IsVisible")
                     .HasColumnType("bit");
 
                 b.Property<string>("Name")
@@ -614,6 +641,9 @@ namespace POS.Migrations
                     .HasColumnType("nvarchar(max)");
 
                 b.Property<bool>("IsActive")
+                    .HasColumnType("bit");
+
+                b.Property<bool>("IsVisible")
                     .HasColumnType("bit");
 
                 b.Property<string>("Name")

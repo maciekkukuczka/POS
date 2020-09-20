@@ -10,7 +10,6 @@ namespace POS.Models
     {
         [Required(ErrorMessage = "Pole 'Tytuł' nie może być puste!")]
         public string Name { get; set; }
-        public bool IsVisible { get; set; }
         public ICollection<Image> Images { get; set; }
     }
 

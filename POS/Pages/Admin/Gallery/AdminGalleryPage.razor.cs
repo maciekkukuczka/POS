@@ -100,21 +100,6 @@ namespace POS.Pages.Admin.Gallery
                     }
                 );
             });
-
-            // StateHasChanged();
-        }
-
-
-        //Data Seed
-        void AddGallery()
-        {
-            var gallery = new Models.Gallery();
-            gallery.Name = "Galeria 1";
-            gallery.Images = new List<Image>();
-
-            gallery.Images.Add(new Image()
-            {
-            });
         }
     }
 

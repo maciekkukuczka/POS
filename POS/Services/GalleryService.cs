@@ -31,9 +31,9 @@ namespace POS.Services
                 .AsQueryable();
         }
 
-        public IQueryable<Gallery> GetGalleries(bool isVisible, bool isActive = true)
+        public IQueryable<Gallery> GetGalleries(bool isVisible = true, bool isActive = true)
         {
-            return DbSet.Where(x => x.IsActive == isActive && x.IsVisible == isActive)
+            return DbSet.Where(x => x.IsVisible == isVisible && x.IsActive == isActive)
                 .Include(x => x.Images)
                 .AsQueryable();
         }

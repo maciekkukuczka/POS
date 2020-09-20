@@ -46,6 +46,8 @@ namespace POS
             services.AddScoped<GamesGroupService>();
             services.AddScoped<ImageService>();
             services.AddScoped<GalleryService>();
+            services.AddScoped<BloodService>();
+            services.AddScoped<RankService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

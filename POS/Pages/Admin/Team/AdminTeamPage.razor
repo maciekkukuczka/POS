@@ -3,17 +3,17 @@
 
 
 
-@if (Items == null || AppUsers == null || Images == null)
+@if (Items == null || Bloods == null || GamesGroups == null || Ranks == null)
 {
     <em>ładujem siem...</em>
 }
 else
 {
     <div class="container-fluid d-flex flex-column back">
-    <h3>Newsy</h3>
+    <h3>Zespół</h3>
 
     <div class="my-3 justify-content-end d-flex">
-        <button class="btn btn-outline-primary @(_isButtonAddVisible ? "" : "disabled")" @onclick="@Add">Dodaj Newsa</button>
+        <button class="btn btn-outline-primary @(_isButtonAddVisible ? "" : "disabled")" @onclick="@Add">Dodaj Użytkownika</button>
     </div>
 
     @if (_showAdd)
@@ -32,134 +32,109 @@ else
                         @* <DataAnnotationsValidator/> *@
                         <ValidationSummary/>
 
-                        @* Image File input *@
+                        @* Avatar <InputFile> *@
                         <div class="form-group custom-file input-group mb-3">
-                            <InputFile class="custom-file-input " id="inputGroupFile01" OnChange="OnInputFileChange" multiple/>
-                            <label class="custom-file-label" for="inputGroupFile01">Wybierz zdjęcie...</label>
+                            <InputFile class="custom-file-input " id="inputGroupFile02" OnChange="OnInputFileChange"/>
+                            <label class="custom-file-label" for="inputGroupFile02">Wybierz zdjęcie...</label>
                         </div>
 
-                        @if (Model.Images != null)
+                        @if (Model.Avatar != null)
                         {
                             <div class="d-flex mb-3">
-                                @foreach (var image in Model.Images)
-                                {
-                                    <div class="mr-3">
-                                        <img class="img-fluid rounded img-thumbnail" src="@image.Path"/>
-                                        <button type="button" class="btn btn-outline-primary" style="margin-left: -50px; margin-top: -150px;"
-                                                @onclick="() => DeleteImage(image)">
-                                            X
-                                        </button>
-                                    </div>
-                                }
+
+                                <div class="mr-3">
+                                    <img class="img-fluid rounded img-thumbnail" src="@Model.Avatar.Path"/>
+                                    <button type="button" class="btn btn-outline-primary" style="margin-left: -50px; margin-top: -150px;"
+                                            @onclick="() => DeleteImage(Model.Avatar)">
+                                        X
+                                    </button>
+                                </div>
                             </div>
                         }
 
-                        @* Title Input *@
+                        @* NickName <InputText>  *@
                         <div class="mb-3">
-                            <InputText class="form-control " placeholder="Tytuł" @bind-Value="Model.Title"/>
-                            <ValidationMessage For="() => Model.Title"/>
+                            <InputText class="form-control " placeholder="Nick" @bind-Value="Model.NickName"/>
+                            <ValidationMessage For="() => Model.NickName"/>
                         </div>
 
-                        @* Content textarea *@
+                        @* First Name <InputTextArea> *@
                         <div class="mb-3">
-                            <InputTextArea class="form-control my-3" id="exampleFormControlTextarea1" rows="3"
-                                           @bind-Value="Model.Content" placeholder="Treść newsa...">
-                            </InputTextArea>
+                            <InputText class="form-control " placeholder="Imię" @bind-Value="Model.FirstName"/>
+                            <ValidationMessage For="() => Model.FirstName"/>
                         </div>
 
-                        @* //Date input *@
-                        <div class="d-flex mb-3">
-                            <InputDate class="form-control  mr-3" placeholder="Data wpisu" @bind-Value="Model.Date"/>
+                        @* Last Name <InputTextArea> *@
+                        <div class="mb-3">
+                            <InputText class="form-control " placeholder="Nazwisko" @bind-Value="Model.LastName"/>
+                            <ValidationMessage For="() => Model.LastName"/>
+                        </div>
 
-                            @* //Select Author *@
-                            <InputSelect class="form-control mr-3" @bind-Value="Model.AppUserID">
-
-                                <option value="0" disabled selected>Wybierz autora...</option>
-
-                                @foreach (var item in AppUsers)
+                        @* Blood <InputSelect>*@
+                        <div class="form-group">
+                            <InputSelect class="form-control mr-3" @bind-Value="Model.BloodId">
+                                <option value="0" disabled>Wybierz grupę krwi...</option>
+                                @foreach (var blod in Bloods)
                                 {
-                                    <option value="@item.Id">
-                                        @item.NickName
-                                    </option>
+                                    <option value="@blod.Id">@blod.Name</option>
                                 }
                             </InputSelect>
-                            @* <ValidationMessage  For="Model.AppUserID"/> *@
+                        </div>
 
-                            @* Is Published Checkbox *@
-                            <div class="form-group form-check">
-                                <label class="form-check-label p-1" for="@Model.Id">
-                                    <InputCheckbox class="form-check-input ml-0" type="checkbox" id="@Model.Id"
-                                                   @bind-Value="Model.IsVisible"/>
-                                    Opublikuj
-                                </label>
-                            </div>
+                        @* Ranks <InputSelect>*@
+                        <div class="form-group">
+                            <InputSelect class="form-control mr-3" @bind-Value="Model.RankId">
+                                <option value="0" disabled>Wybierz grupę krwi...</option>
 
+                                @foreach (var rank in Ranks)
+                                {
+                                    <option value="@rank.Id">@rank.Name</option>
+                                }
+                            </InputSelect>
                         </div>
 
 
-                        @* //Games Groups checkbox *@
-                        <div class="my-3 d-flex justify-content-start">
-                            @foreach (var gg in GamesGroups)
-                            {
-                                @if (Model.GamesGroups.Contains(gg))
-                                {
-                                    <div class=" form-group form-check mr-3 ">
-                                        <input class="form-check-input ml-0" type="checkbox" id="@gg.Id"
-                                               @onchange="@((e) => GamesGroupCheckboxOnChange(gg, e))"
-                                               checked>
-
-                                        <label class="form-check-label p-1" for="@gg.Id">
-                                            @gg.Name
-                                        </label>
-                                    </div>
-                                }
-
-                                else
-                                {
-                                    <div class="form-check  mr-3">
-                                        <input class="form-check-input ml-0" type="checkbox" id="@gg.Id"
-                                               @onchange="@((e) => GamesGroupCheckboxOnChange(gg, e))">
-
-                                        <label class="form-check-label p-1" for="@gg.Id">
-                                            @gg.Name
-                                        </label>
-                                    </div>
-                                }
-                            }
+                        @* Is Published Checkbox *@
+                        <div class="form-group form-check">
+                            <label class="form-check-label p-1" for="@Model.Id">
+                                <InputCheckbox class="form-check-input ml-0" type="checkbox" id="@Model.Id"
+                                               @bind-Value="Model.IsVisible"/>
+                                Opublikuj
+                            </label>
                         </div>
 
 
-                        @* //Games Groups checkbox ms *@
-                        @*                         <div class="my-3 d-flex justify-content-start"> *@
-                        @*                             @foreach (var gg in GamesGroups) *@
-                        @*                             { *@
-                        @*                                 @if (Model.GamesGroups.Contains(gg)) *@
+                        @*                             $1$ //Games Groups checkbox #1# *@
+                        @*                             <div class="my-3 d-flex justify-content-start"> *@
+                        @*                                 @foreach (var gg in GamesGroups) *@
                         @*                                 { *@
-                        @*                                     <div class="form-check mr-3 "> *@
-                        @*                                         <InputCheckbox class="form-check-input ml-0"  *@
-                        @*                                                        $1$ @bind-Value="@Model.GamesGroups" #1# *@
-                        @*                                                        @ValueChanged="() =>@GamesGroupCheckboxOnChange" *@
-                        @*                                                        checked/> *@
+                        @*                                     @if (Model.GamesGroups.Contains(gg)) *@
+                        @*                                     { *@
+                        @*                                         <div class=" form-group form-check mr-3 "> *@
+                        @*                                             <input class="form-check-input ml-0" type="checkbox" id="@gg.Id" *@
+                        @*                                                    @onchange="@((e) => GamesGroupCheckboxOnChange(gg, e))" *@
+                        @*                                                    checked> *@
                         @* *@
-                        @*                                         <label class="form-check-label p-1"> *@
-                        @*                                             @gg.Name *@
-                        @*                                         </label> *@
-                        @*                                     </div> *@
+                        @*                                             <label class="form-check-label p-1" for="@gg.Id"> *@
+                        @*                                                 @gg.Name *@
+                        @*                                             </label> *@
+                        @*                                         </div> *@
+                        @*                                     } *@
+                        @* *@
+                        @*                                     else *@
+                        @*                                     { *@
+                        @*                                         <div class="form-check  mr-3"> *@
+                        @*                                             <input class="form-check-input ml-0" type="checkbox" id="@gg.Id" *@
+                        @*                                                    @onchange="@((e) => GamesGroupCheckboxOnChange(gg, e))"> *@
+                        @* *@
+                        @*                                             <label class="form-check-label p-1" for="@gg.Id"> *@
+                        @*                                                 @gg.Name *@
+                        @*                                             </label> *@
+                        @*                                         </div> *@
+                        @*                                     } *@
                         @*                                 } *@
-                        @* *@
-                        @*                                 else *@
-                        @*                                 { *@
-                        @*                                     <div class="form-check  mr-3"> *@
-                        @*                                         <input class="form-check-input ml-0" type="checkbox" id="@gg.Id" *@
-                        @*                                                @onchange="@((e) => GamesGroupCheckboxOnChange(gg, e))"> *@
-                        @* *@
-                        @*                                         <label class="form-check-label p-1" for="@gg.Id"> *@
-                        @*                                             @gg.Name *@
-                        @*                                         </label> *@
-                        @*                                     </div> *@
-                        @*                                 } *@
-                        @*                             } *@
-                        @*                         </div> *@
+                        @*                             </div> *@
+
 
                         @* //Buttons *@
                         <div class="my-3 d-flex justify-content-end">
@@ -183,42 +158,53 @@ else
             <tr>
                 <th scope="col">Lp.</th>
                 <th scope="col">Id</th>
-                <th scope="col">Data wpisu</th>
-                <th scope="col">Tytuł</th>
-                <th scope="col">Zawartość</th>
-                <th scope="col">Nick Autora</th>
-                <th scope="col">Grupa gier</th>
-                <th scope="col">Opublikowany?</th>
-                <th scope="col">Zdjęcia</th>
+                <th scope="col">Avatar</th>
+                <th scope="col">Nick</th>
+                <th scope="col">Imię nazwisko</th>
+                <th scope="col">Grupa krwi</th>
+                <th scope="col">Ranga</th>
+                <th scope="col">Grupy gier</th>
+                <th scope="col">Wyświetlany?</th>
                 <th scope="col">Akcje</th>
             </tr>
             </thead>
             <tbody>
+
 
             @foreach (var item in Items)
             {
                 <tr>
                     <th scope="row">@(Items.IndexOf(item) + 1)</th>
                     <td>@item.Id</td>
-                    <td>@item.Date</td>
-                    <td>@item.Title</td>
-                    <td>@item.Content</td>
-                    <td>@item.AppUser.NickName</td>
                     <td>
-                        @foreach (var gamesGroup in item.GamesGroups)
+                        @if (item.Avatar != null)
                         {
-                            <p>
-                                @gamesGroup.Name
-                            </p>
+                            <div style="width: 75px;">
+                                <img class="img-thumbnail rounded" src="@item.Avatar.Path" alt="">
+                            </div>
+                        }
+                    </td>
+                    <td>@item.NickName</td>
+                    <td>@item.FullName</td>
+                    <td>@item.Blood.Name</td>
+                    <td>@item.Rank.Name</td>
+                    <td>
+                        @if (item.GamesGroups != null && item.GamesGroups.Count > 0)
+                        {
+                            @foreach (var gamesGroup in item.GamesGroups)
+                            {
+                                <p>
+                                    @gamesGroup.Name
+                                </p>
+                            }
+                        }
+                        else
+                        {
+                            <p>-</p>
                         }
                     </td>
                     <td>@(item.IsVisible ? "Tak" : "Nie")</td>
-                    <td>
-                        @foreach (var image in item.Images)
-                        {
-                            <img src="@image.Path">
-                        }
-                    </td>
+
                     <td>
                         <button class="btn btn-outline-warning" @onclick="() => { Edit(item); }">Edytuj</button>
                         <button class="btn btn-outline-danger" @onclick="() => { Hide(item); }">Usuń</button>

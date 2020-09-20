@@ -6,6 +6,7 @@
         public int Id { get; set; }
         public string Class { get; set; }
         public bool IsActive { get; set; } = true;
+        public bool IsVisible { get; set; }
     }
 
 }

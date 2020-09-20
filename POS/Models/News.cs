@@ -9,7 +9,6 @@ namespace POS.Models
 
     public class News : BaseEntity
     {
-        public bool IsVisible { get; set; }
         [Required(ErrorMessage = "Pole TYTUŁ jest wymagane!")]
         [StringLength(100, ErrorMessage = "Pole jest za długie!")]
         public string Title { get; set; }
@@ -17,8 +16,9 @@ namespace POS.Models
         public string Content { get; set; }
 
         public int AppUserID { get; set; }
-        [Required(ErrorMessage = "Pole 'AUTOR' jest wymagane!")]
-        [ValidateComplexType]
+
+        // [Required(ErrorMessage = "Pole 'AUTOR' jest wymagane!")]
+        // [ValidateComplexType]
         public virtual AppUser AppUser { get; set; }
 
         [Required]
