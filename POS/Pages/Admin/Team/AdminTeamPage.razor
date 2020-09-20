@@ -18,7 +18,7 @@ else
 
     @if (_showAdd)
     {
-        <div class="contaier sticky-top bg-light">
+        <div class="container-fluid sticky-top bg-light">
 
             <div class="row">
                 <div class="col">
@@ -27,7 +27,7 @@ else
                         <button class=" btn btn-outline-primary" type="button" @onclick="Close">X</button>
                     </div>
 
-                    <div class="container">
+                    <div class="container-fluid">
 
 
                         <EditForm Model="Model" OnValidSubmit="@ValidSubmit">
@@ -89,7 +89,7 @@ else
                                     @* Ranks <InputSelect>*@
                                     <div class="form-group">
                                         <InputSelect class="form-control mr-3" @bind-Value="Model.RankId">
-                                            <option value="0" disabled>Wybierz grupę krwi...</option>
+                                            <option value="0" disabled>Wybierz rangę...</option>
 
                                             @foreach (var rank in Ranks)
                                             {
@@ -145,17 +145,11 @@ else
                                     </div>
                                 </div>
                                 <div class="col-6">
-                                    <button class="btn btn-outline-primary" @onclick="AddAddress">Dodaj Adress</button>
-
-                                    @* Address Name <InputText>  *@
-                                    <div class="mb-3">
-                                        <InputText class="form-control " placeholder="Nazwa adresu" @bind-Value="Model.NickName"/>
-                                        <ValidationMessage For="() => Model.NickName"/>
-                                    </div>
+                                    <AdminAddressComponent UserId="@Model.Id"/>
                                 </div>
 
                                 @* //Buttons *@
-                                <div class="my-3 d-flex justify-content-end">
+                                <div class="w-100 my-3 d-flex justify-content-end">
                                     <button class="btn btn-outline-primary " type="button" @onclick="Close">Anuluj</button>
                                     <button class="btn btn-warning ml-3" type="submit">Zapisz</button>
                                 </div>
@@ -185,6 +179,7 @@ else
                 <th scope="col">Grupa krwi</th>
                 <th scope="col">Ranga</th>
                 <th scope="col">Grupy gier</th>
+                <th scope="col">Adresy</th>
                 <th scope="col">Wyświetlany?</th>
                 <th scope="col">Akcje</th>
             </tr>
@@ -224,6 +219,30 @@ else
                             <p>-</p>
                         }
                     </td>
+
+                    <td>
+                        @if (item.Addresses != null && item.Addresses.Count > 0)
+                        {
+                            @foreach (var address in item.Addresses)
+                            {
+                                <div>
+
+                                    <p>@address.Name</p>
+                                    <p>@address.Line1</p>
+                                    <p>@address.Line2</p>
+                                    <p>@address.Code</p>
+                                    <p>@address.City</p>
+                                    <p>@address.Country</p>
+                                    <p>@address.Comments</p>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>-</p>
+                        }
+                    </td>
+
                     <td>@(item.IsVisible ? "Tak" : "Nie")</td>
 
                     <td>
