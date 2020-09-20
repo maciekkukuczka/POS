@@ -104,36 +104,40 @@ else
                         </div>
 
 
-                        @*                             $1$ //Games Groups checkbox #1# *@
-                        @*                             <div class="my-3 d-flex justify-content-start"> *@
-                        @*                                 @foreach (var gg in GamesGroups) *@
-                        @*                                 { *@
-                        @*                                     @if (Model.GamesGroups.Contains(gg)) *@
-                        @*                                     { *@
-                        @*                                         <div class=" form-group form-check mr-3 "> *@
-                        @*                                             <input class="form-check-input ml-0" type="checkbox" id="@gg.Id" *@
-                        @*                                                    @onchange="@((e) => GamesGroupCheckboxOnChange(gg, e))" *@
-                        @*                                                    checked> *@
-                        @* *@
-                        @*                                             <label class="form-check-label p-1" for="@gg.Id"> *@
-                        @*                                                 @gg.Name *@
-                        @*                                             </label> *@
-                        @*                                         </div> *@
-                        @*                                     } *@
-                        @* *@
-                        @*                                     else *@
-                        @*                                     { *@
-                        @*                                         <div class="form-check  mr-3"> *@
-                        @*                                             <input class="form-check-input ml-0" type="checkbox" id="@gg.Id" *@
-                        @*                                                    @onchange="@((e) => GamesGroupCheckboxOnChange(gg, e))"> *@
-                        @* *@
-                        @*                                             <label class="form-check-label p-1" for="@gg.Id"> *@
-                        @*                                                 @gg.Name *@
-                        @*                                             </label> *@
-                        @*                                         </div> *@
-                        @*                                     } *@
-                        @*                                 } *@
-                        @*                             </div> *@
+                        @* //Games Groups checkbox *@
+                        <div class="my-3 d-flex justify-content-start">
+
+
+
+                            @foreach (var gg in GamesGroups)
+                            {
+                                @if (Model.GamesGroups != null && Model.GamesGroups.Contains(gg))
+                                {
+                                    <div class=" form-group form-check mr-3 ">
+                                        <input class="form-check-input ml-0" type="checkbox" id="@gg.Id"
+                                               @onchange="@((e) => GamesGroupCheckboxOnChange(gg, e))"
+                                               checked>
+
+                                        <label class="form-check-label p-1" for="@gg.Id">
+                                            @gg.Name
+                                        </label>
+                                    </div>
+                                }
+
+                                else
+                                {
+                                    <div class="form-check  mr-3">
+                                        <input class="form-check-input ml-0" type="checkbox" id="@gg.Id"
+                                               @onchange="@((e) => GamesGroupCheckboxOnChange(gg, e))">
+
+                                        <label class="form-check-label p-1" for="@gg.Id">
+                                            @gg.Name
+                                        </label>
+                                    </div>
+                                }
+                            }
+
+                        </div>
 
 
                         @* //Buttons *@

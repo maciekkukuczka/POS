@@ -119,6 +119,8 @@ namespace POS.Pages.Admin.Team
 
         protected void GamesGroupCheckboxOnChange(GamesGroup gamesGroup, ChangeEventArgs e)
         {
+            if (Model.GamesGroups == null) Model.GamesGroups = new List<GamesGroup>();
+
             if (!Model.GamesGroups.Contains(gamesGroup))
             {
                 Model.GamesGroups.Add(gamesGroup);

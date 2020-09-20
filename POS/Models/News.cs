@@ -15,16 +15,16 @@ namespace POS.Models
         public DateTime Date { get; set; } = DateTime.Now;
         public string Content { get; set; }
 
+        [Required(ErrorMessage = "Pole 'AUTOR' jest wymagane!")]
+
+        // [ValidateComplexType]
         public int AppUserID { get; set; }
 
-        // [Required(ErrorMessage = "Pole 'AUTOR' jest wymagane!")]
-        // [ValidateComplexType]
         public virtual AppUser AppUser { get; set; }
 
-        [Required]
-
+        // [Required]
         // [Range(typeof(bool), "false","true")]
-        [ValidateComplexType]
+        // [ValidateComplexType]
         public virtual ICollection<GamesGroup> GamesGroups { get; set; }
         public virtual ICollection<Image> Images { get; set; }
     }

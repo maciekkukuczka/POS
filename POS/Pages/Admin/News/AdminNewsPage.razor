@@ -28,8 +28,8 @@ else
                     </div>
 
                     <EditForm Model="Model" OnValidSubmit="@ValidSubmit">
-                        <ObjectGraphDataAnnotationsValidator/>
-                        @* <DataAnnotationsValidator/> *@
+                        @* <ObjectGraphDataAnnotationsValidator/> *@
+                        <DataAnnotationsValidator/>
                         <ValidationSummary/>
 
                         @* Image File input *@
@@ -71,7 +71,7 @@ else
                         <div class="d-flex mb-3">
                             <InputDate class="form-control  mr-3" placeholder="Data wpisu" @bind-Value="Model.Date"/>
 
-                            @* //Select Author *@
+                            @* Select Author <InputSelect> *@
                             <InputSelect class="form-control mr-3" @bind-Value="Model.AppUserID">
 
                                 <option value="0" disabled selected>Wybierz autora...</option>
@@ -84,6 +84,23 @@ else
                                 }
                             </InputSelect>
                             @* <ValidationMessage  For="Model.AppUserID"/> *@
+
+
+
+                            @*                              $1$ //Select Author #1# *@
+                            @*                                                         <select class="form-control mr-3" @bind="Model.AppUserID"> *@
+                            @*                              *@
+                            @*                                                             <option value="0" disabled selected>Wybierz autora...</option> *@
+                            @*                              *@
+                            @*                                                             @foreach (var item in AppUsers) *@
+                            @*                                                             { *@
+                            @*                                                                 <option value="@item.Id"> *@
+                            @*                                                                     @item.NickName *@
+                            @*                                                                 </option> *@
+                            @*                                                             } *@
+                            @*                                                         </select> *@
+
+
 
                             @* Is Published Checkbox *@
                             <div class="form-group form-check">
