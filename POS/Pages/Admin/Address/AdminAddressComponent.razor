@@ -4,15 +4,15 @@
 
 @if (Items == null || Bloods == null || GamesGroups == null || Ranks == null)
 {
-    <em>ładujem siem...</em>
+    <em>Moment kurła...</em>
 }
 else
 {
     <div class="container-fluid d-flex flex-column back">
-    <h3>Zespół</h3>
+
 
     <div class="my-3 justify-content-end d-flex">
-        <button class="btn btn-outline-primary @(_isButtonAddVisible ? "" : "disabled")" @onclick="@Add">Dodaj Użytkownika</button>
+        <button class="btn btn-outline-primary @(_isButtonAddVisible ? "" : "disabled")" @onclick="@Add">Dodaj Adres</button>
     </div>
 
     @if (_showAdd)
