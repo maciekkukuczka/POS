@@ -10,10 +10,10 @@ using POS.Models;
 using POS.Services;
 
 
-namespace POS.Pages.Admin.Team
+namespace POS.Pages.Admin.Address
 {
 
-    public class AdminTeamPageBase : OwningComponentBase
+    public class AdminAddressComponentBase : OwningComponentBase
 
     {
         protected bool _showAdd = false;
