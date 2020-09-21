@@ -2,7 +2,7 @@
 
 
 
-@if (Items == null)
+@if (Items == null || ContactTypes != null)
 {
     <em>Moment kurła...</em>
 }
@@ -34,38 +34,23 @@ else
 
 
 
-                            @* NickName <InputText>  *@
+                            @* Contact Type <Select>  *@
                             <div class="mb-3">
-                                <InputText class="form-control " placeholder="Nazwa adresu" @bind-Value="Model.Name"/>
-                                <ValidationMessage For="() => Model.Name"/>
+                                <InputSelect class="form-control " placeholder="Nazwa adresu" @bind-Value="Model.ContactTypeId">
+
+                                    <option value="0" disabled>Wybierz typ kontaktu...</option>
+                                    @foreach (var type in ContactTypes)
+                                    {
+                                        <option value="@type.Id" disabled>@type.Name</option>
+                                    }
+                                </InputSelect>
+                                <ValidationMessage For="() => Model.ContactTypeId"/>
                             </div>
 
-                            @* NickName <InputText>  *@
+                            @* Contact info <InputText>  *@
                             <div class="mb-3">
-                                <InputText class="form-control " placeholder="Ulica" @bind-Value="Model.Line1"/>
-                                <ValidationMessage For="() => Model.Line1"/>
-
-                            </div> @* NickName <InputText>  *@
-                            <div class="mb-3">
-                                <InputText class="form-control " placeholder="Ulica cd..." @bind-Value="Model.Line2"/>
-
-                            </div> @* NickName <InputText>  *@
-                            <div class="mb-3">
-                                <InputText class="form-control " placeholder="Kod" @bind-Value="Model.Code"/>
-                                <ValidationMessage For="() => Model.Code"/>
-
-                            </div> @* NickName <InputText>  *@
-                            <div class="mb-3">
-                                <InputText class="form-control " placeholder="Miasto" @bind-Value="Model.City"/>
-                                <ValidationMessage For="() => Model.City"/>
-
-                            </div> @* NickName <InputText>  *@
-                            <div class="mb-3">
-                                <InputText class="form-control " placeholder="Państwo" @bind-Value="Model.Country"/>
-
-                            </div> @* NickName <InputText>  *@
-                            <div class="mb-3">
-                                <InputTextArea class="form-control " placeholder="Komentarz" @bind-Value="Model.Comments"/>
+                                <InputText class="form-control " placeholder="Kontakt" @bind-Value="Model.ContactInformation"/>
+                                <ValidationMessage For="() => Model.ContactInformation"/>
                             </div>
 
 
@@ -92,13 +77,9 @@ else
                 <tr>
                     <th scope="col">Lp.</th>
                     <th scope="col">Id</th>
-                    <th scope="col">Nazwa</th>
-                    <th scope="col">Ulica</th>
-                    <th scope="col">Ulica cd...</th>
-                    <th scope="col">Kod</th>
-                    <th scope="col">Miasto</th>
-                    <th scope="col">Państwo</th>
-                    <th scope="col">Komentarz</th>
+                    <th scope="col">Typ kontaktu</th>
+                    <th scope="col">Kontakt</th>
+
                     <th scope="col">Akcje</th>
                 </tr>
                 </thead>
@@ -111,13 +92,8 @@ else
                         <th scope="row">@(Items.IndexOf(item) + 1)</th>
                         <td>@item.Id</td>
 
-                        <td>@item.Name</td>
-                        <td>@item.Line1</td>
-                        <td>@item.Line2</td>
-                        <td>@item.Code</td>
-                        <td>@item.City</td>
-                        <td>@item.Country</td>
-                        <td>@item.Comments</td>
+                        <td>@item.ContactType</td>
+                        <td>@item.ContactInformation</td>
 
                         <td>
                             <button type="button" class="btn btn-outline-warning" @onclick="() => { Edit(item); }">Edytuj</button>

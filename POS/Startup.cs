@@ -49,6 +49,8 @@ namespace POS
             services.AddScoped<BloodService>();
             services.AddScoped<RankService>();
             services.AddScoped<AddressService>();
+            services.AddScoped<ContactService>();
+            services.AddScoped<ContactTypeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
