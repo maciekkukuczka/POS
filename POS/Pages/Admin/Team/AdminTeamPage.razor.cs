@@ -22,7 +22,7 @@ namespace POS.Pages.Admin.Team
         //Models
         protected AppUser Model;
         protected List<AppUser> Items;
-        protected List<Blood> Bloods;
+        protected List<Models.Blood> Bloods;
         protected List<Models.Rank> Ranks;
         protected List<GamesGroup> GamesGroups;
 
@@ -55,7 +55,7 @@ namespace POS.Pages.Admin.Team
         {
             Model = new AppUser();
 
-            Model.Avatar = new Image();
+            // Model.Avatar = new Image();
 
             // Model.Blood = new Blood();
             // Model.Rank = new Models.Rank();
@@ -117,6 +117,7 @@ namespace POS.Pages.Admin.Team
 
         protected async Task OnInputFileChange(InputFileChangeEventArgs e)
         {
+            Model.Avatar = new Image();
             var imagesDataUrls = await ImageUploadProcessor.GetDataUrlsFromUploadedImagesAsync(e);
 
             Model.Avatar.Path = imagesDataUrls.First();

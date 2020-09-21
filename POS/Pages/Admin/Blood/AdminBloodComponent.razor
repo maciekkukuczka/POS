@@ -1,4 +1,4 @@
-﻿@inherits AdminRankComponentBase
+﻿@inherits AdminBloodComponentBase
 
 
 
@@ -9,11 +9,11 @@
 else
 {
     <div class="container-fluid d-flex flex-column back">
-        <h4 >Rangi</h4>
+        <h4 >Grupy krwi</h4>
 
         <div class="my-3 justify-content-end d-flex">
             <button type="button" class="btn btn-outline-primary @(_isButtonAddVisible ? "" : "disabled")" @onclick="@Add">
-                Dodaj rangę
+                Dodaj grupę krwi
             </button>
         </div>
 
@@ -67,7 +67,7 @@ else
                 <tr>
                     <th scope="col">Lp.</th>
                     @* <th scope="col">Id</th> *@
-                    <th scope="col">Ranga</th>
+                    <th scope="col">Grupa krwi</th>
 
                     <th scope="col">Akcje</th>
                 </tr>

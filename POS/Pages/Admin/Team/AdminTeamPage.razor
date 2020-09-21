@@ -192,7 +192,7 @@ else
 
             @foreach (var item in Items)
             {
-                <tr>
+                <tr >
                     <th scope="row">@(Items.IndexOf(item) + 1)</th>
                     <td>@item.Id</td>
                     <td>
@@ -228,14 +228,14 @@ else
                         {
                             @foreach (var address in item.Addresses)
                             {
-                                <div>
-
-                                    <p>@address.Name</p>
-                                    <p>@address.Line1</p>
-                                    <p>@address.Line2</p>
-                                    <p>@address.Code</p>
-                                    <p>@address.City</p>
-                                    <p>@address.Country</p>
+                                <div class="border-bottom">
+                                    <p class="text-uppercase">@address.Name</p>
+                                    <p>
+                                        <span>@address.Line1</span><span> @address.Line2</span>
+                                    </p>
+                                    <p>
+                                        <span>@address.Code- </span><span>@address.City</span><span> @address.Country</span>
+                                    </p>
                                     <p>@address.Comments</p>
                                 </div>
                             }
