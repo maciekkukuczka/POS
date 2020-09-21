@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using POS.Services;
 
 
-namespace POS.Pages.Admin.Address
+namespace POS.Pages.Admin.Contact
 {
 
     public class AdminContactComponentBase : OwningComponentBase

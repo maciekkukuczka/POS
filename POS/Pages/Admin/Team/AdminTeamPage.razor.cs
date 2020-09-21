@@ -23,7 +23,7 @@ namespace POS.Pages.Admin.Team
         protected AppUser Model;
         protected List<AppUser> Items;
         protected List<Blood> Bloods;
-        protected List<Rank> Ranks;
+        protected List<Models.Rank> Ranks;
         protected List<GamesGroup> GamesGroups;
 
 
@@ -56,8 +56,9 @@ namespace POS.Pages.Admin.Team
             Model = new AppUser();
 
             Model.Avatar = new Image();
-            Model.Blood = new Blood();
-            Model.Rank = new Rank();
+
+            // Model.Blood = new Blood();
+            // Model.Rank = new Models.Rank();
             Model.GamesGroups = new List<GamesGroup>();
             Model.Addresses = new List<Models.Address>();
 

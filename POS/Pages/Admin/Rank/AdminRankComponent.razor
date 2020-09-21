@@ -1,0 +1,99 @@
+﻿@inherits AdminRankComponentBase
+
+
+
+@if (Items == null)
+{
+    <em>Moment kurła...</em>
+}
+else
+{
+    <div class="container-fluid d-flex flex-column back">
+
+
+        <div class="my-3 justify-content-end d-flex">
+            <button type="button" class="btn btn-outline-primary @(_isButtonAddVisible ? "" : "disabled")" @onclick="@Add">
+                Dodaj rangę
+            </button>
+        </div>
+
+        @if (_showAdd)
+        {
+            <div class="contaier sticky-top bg-light">
+
+                <div class="row">
+                    <div class="col">
+
+                        <div class=" d-flex justify-content-end mb-3">
+                            <button class=" btn btn-outline-primary" type="button" @onclick="Close">X</button>
+                        </div>
+
+
+                        <EditForm Model="Model" OnValidSubmit="@ValidSubmit">
+                            <ObjectGraphDataAnnotationsValidator/>
+                            @* <DataAnnotationsValidator/> *@
+                            @* <ValidationSummary/> *@
+
+
+
+
+                            @* Contact type <InputText>  *@
+                            <div class="mb-3">
+                                <InputText class="form-control " placeholder="Nazwa typu kontaktu" @bind-Value="Model.Name"/>
+                                <ValidationMessage For="() => Model.Name"/>
+                            </div>
+
+
+                            @* //Buttons *@
+                            <div class="my-3 d-flex justify-content-end">
+                                <button class="btn btn-outline-primary " type="button" @onclick="Close">Anuluj</button>
+                                <button class="btn btn-warning ml-3" type="submit">Zapisz</button>
+                            </div>
+
+                        </EditForm>
+
+                    </div>
+                </div>
+            </div>
+        }
+
+
+
+        @* Table *@
+        <div class="contaier">
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Lp.</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nazwa typu kontaktu</th>
+
+                    <th scope="col">Akcje</th>
+                </tr>
+                </thead>
+                <tbody>
+
+
+                @foreach (var item in Items)
+                {
+                    <tr>
+                        <th scope="row">@(Items.IndexOf(item) + 1)</th>
+                        <td>@item.Id</td>
+
+                        <td>@item.Name</td>
+
+                        <td>
+                            <button type="button" class="btn btn-outline-warning" @onclick="() => { Edit(item); }">Edytuj</button>
+                            <button type="button" class="btn btn-outline-danger" @onclick="() => { Hide(item); }">Usuń</button>
+                        </td>
+                    </tr>
+                }
+
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+}
