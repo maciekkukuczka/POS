@@ -20,6 +20,7 @@ namespace POS.Services
         public IQueryable<Contact> GetAllActiveContactsByUser(int id)
         {
             return DbSet.Where(x => x.IsActive && x.AppUserId == id)
+                .Include(x => x.ContactType)
                 .AsQueryable();
         }
     }

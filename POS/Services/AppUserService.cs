@@ -25,6 +25,8 @@ namespace POS.Services
                 .Include(x => x.Avatar)
                 .Include(x => x.Addresses)
                 .Include(x => x.GamesGroups)
+                .Include(x => x.Contacts)
+                .ThenInclude(x => x.ContactType)
                 .AsQueryable();
         }
 

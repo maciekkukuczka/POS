@@ -182,6 +182,7 @@ else
                 <th scope="col">Ranga</th>
                 <th scope="col">Grupy gier</th>
                 <th scope="col">Adresy</th>
+                <th scope="col">Kontakty</th>
                 <th scope="col">Wyświetlany?</th>
                 <th scope="col">Akcje</th>
             </tr>
@@ -245,6 +246,26 @@ else
                         }
                     </td>
 
+                    <td>
+                        @if (item.Contacts != null && item.Contacts.Count > 0)
+                        {
+                            @foreach (var contact in item.Contacts)
+                            {
+                                @if (contact.ContactType != null)
+                                {
+                                    <p>
+                                        <span>
+                                            @contact.ContactType.Name<text>: </text>
+                                        </span> @contact.ContactInformation
+                                    </p>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <p>-</p>
+                        }
+                    </td>
                     <td>@(item.IsVisible ? "Tak" : "Nie")</td>
 
                     <td>

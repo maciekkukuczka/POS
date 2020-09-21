@@ -2,7 +2,7 @@
 
 
 
-@if (Items == null || ContactTypes != null)
+@if (Items == null || ContactTypes == null)
 {
     <em>Moment kurła...</em>
 }
@@ -12,7 +12,7 @@ else
 
 
         <div class="my-3 justify-content-end d-flex">
-            <button type="button" class="btn btn-outline-primary @(_isButtonAddVisible ? "" : "disabled")" @onclick="@Add">Dodaj Adres</button>
+            <button type="button" class="btn btn-outline-primary @(_isButtonAddVisible ? "" : "disabled")" @onclick="@Add">Dodaj Kontakt</button>
         </div>
 
         @if (_showAdd)
@@ -36,12 +36,13 @@ else
 
                             @* Contact Type <Select>  *@
                             <div class="mb-3">
-                                <InputSelect class="form-control " placeholder="Nazwa adresu" @bind-Value="Model.ContactTypeId">
+                                <InputSelect class="form-control " placeholder="Nazwa adresu"
+                                             @bind-Value="Model.ContactTypeId">
 
                                     <option value="0" disabled>Wybierz typ kontaktu...</option>
                                     @foreach (var type in ContactTypes)
                                     {
-                                        <option value="@type.Id" disabled>@type.Name</option>
+                                        <option value="@type.Id">@type.Name</option>
                                     }
                                 </InputSelect>
                                 <ValidationMessage For="() => Model.ContactTypeId"/>
@@ -92,7 +93,7 @@ else
                         <th scope="row">@(Items.IndexOf(item) + 1)</th>
                         <td>@item.Id</td>
 
-                        <td>@item.ContactType</td>
+                        <td>@item.ContactType.Name</td>
                         <td>@item.ContactInformation</td>
 
                         <td>
