@@ -19,7 +19,6 @@ namespace POS.Models
 
         // [ValidateComplexType]
         public int AppUserID { get; set; }
-
         public virtual AppUser AppUser { get; set; }
 
         // [Required]

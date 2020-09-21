@@ -28,8 +28,8 @@ else
                     </div>
 
                     <EditForm Model="Model" OnValidSubmit="@ValidSubmit">
-                        @* <ObjectGraphDataAnnotationsValidator/> *@
-                        <DataAnnotationsValidator/>
+                        <ObjectGraphDataAnnotationsValidator/>
+                        @* <DataAnnotationsValidator/> *@
                         <ValidationSummary/>
 
                         @* Image File input *@
@@ -57,7 +57,7 @@ else
                         @* Title Input *@
                         <div class="mb-3">
                             <InputText class="form-control " placeholder="Tytuł" @bind-Value="Model.Title"/>
-                            <ValidationMessage For="() => Model.Title"/>
+                            <ValidationMessage For="@(() => Model.Title)"/>
                         </div>
 
                         @* Content textarea *@
@@ -74,7 +74,7 @@ else
                             @* Select Author <InputSelect> *@
                             <InputSelect class="form-control mr-3" @bind-Value="Model.AppUserID">
 
-                                <option value="0" disabled selected>Wybierz autora...</option>
+                                <option value="" selected>Wybierz autora...</option>
 
                                 @foreach (var item in AppUsers)
                                 {
@@ -83,22 +83,22 @@ else
                                     </option>
                                 }
                             </InputSelect>
-                            @* <ValidationMessage  For="Model.AppUserID"/> *@
+                            @* <ValidationMessage For="()=>Model.AppUserID"/> *@
 
 
 
-                            @*                              $1$ //Select Author #1# *@
-                            @*                                                         <select class="form-control mr-3" @bind="Model.AppUserID"> *@
+                            @*                             $1$ //Select Author #1# *@
+                            @*                                                        <select class="form-control mr-3" @bind="Model.AppUserID"> *@
                             @*                              *@
-                            @*                                                             <option value="0" disabled selected>Wybierz autora...</option> *@
+                            @*                                                            <option value="" disabled selected>Wybierz autora...</option> *@
                             @*                              *@
-                            @*                                                             @foreach (var item in AppUsers) *@
-                            @*                                                             { *@
-                            @*                                                                 <option value="@item.Id"> *@
-                            @*                                                                     @item.NickName *@
-                            @*                                                                 </option> *@
-                            @*                                                             } *@
-                            @*                                                         </select> *@
+                            @*                                                            @foreach (var item in AppUsers) *@
+                            @*                                                            { *@
+                            @*                                                                <option value="@item.Id"> *@
+                            @*                                                                    @item.NickName *@
+                            @*                                                                </option> *@
+                            @*                                                            } *@
+                            @*                                                        </select> *@
 
 
 
