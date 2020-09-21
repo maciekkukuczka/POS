@@ -1,0 +1,118 @@
+﻿@using Microsoft.EntityFrameworkCore
+@using POS.Services
+@inherits OwningComponentBase<POS.Services.AppUserService>
+
+<h3>Zespół</h3>
+
+
+@if (Items == null)
+{
+    <em>Wczytuje...</em>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col d-flex flex-row  justify-content-between flex-wrap">
+
+                @foreach (var item in Items)
+                {
+                    <div class="card my-3" style="width: 18rem;">
+                        <div class="card-body">
+                            @if (@item.Avatar != null)
+                            {
+                                <img class="img-fluid" src="@item.Avatar.Path" alt="">
+                            }
+                            <h5 class="card-title">@item.NickName</h5>
+
+                            <p class="card-text">Imie Nazwisko: @item.FullName</p>
+                            <p class="card-text">
+                                @if (item.Contacts != null && item.Contacts.Count > 0)
+                                {
+                                    @foreach (var contact in item.Contacts)
+                                    {
+                                        @if (contact.ContactType != null)
+                                        {
+                                            <p>
+                                                <span>
+                                                    @contact.ContactType.Name<text>: </text>
+                                                </span> @contact.ContactInformation
+                                            </p>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <p>-</p>
+                                }
+                            </p>
+                            <p class="card-text">Ranga: @item.Rank.Name</p>
+                            <p class="card-text">Grupa krwi: @item.Blood.Name</p>
+                            <p class="card-text">
+
+                                Grupy gier:
+                                @if (item.GamesGroups != null && item.GamesGroups.Count > 0)
+                                {
+                                    @foreach (var gamesGroup in item.GamesGroups)
+                                    {
+                                        <span>
+                                            @gamesGroup.Name <span>, </span>
+                                        </span>
+                                    }
+                                }
+                                else
+                                {
+                                    <p>-</p>
+                                }
+
+
+                            </p>
+                            <p class="card-text">
+                                Adres:
+                                @if (item.Addresses != null && item.Addresses.Count > 0)
+                                {
+                                    @foreach (var address in item.Addresses)
+                                    {
+                                        <div class="border-bottom">
+                                            <p class="text-uppercase">@address.Name</p>
+                                            <p>
+                                                <span>@address.Line1</span><span> @address.Line2</span>
+                                            </p>
+                                            <p>
+                                                <span>@address.Code- </span><span>@address.City</span><span> @address.Country</span>
+                                            </p>
+                                            <p>@address.Comments</p>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <p>-</p>
+                                }
+                            </p>
+
+
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+
+    private AppUser Model;
+    private List<AppUser> Items;
+
+    private AppUserService _appUserService;
+
+    protected override async Task OnInitializedAsync()
+    {
+    // return base.OnInitializedAsync();
+
+        Items = await Service.GetAllActiveUsers().ToListAsync();
+    }
+
+}
