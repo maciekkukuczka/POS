@@ -52,6 +52,7 @@ namespace POS
             services.AddScoped<ContactService>();
             services.AddScoped<ContactTypeService>();
             services.AddScoped<RankService>();
+            services.AddScoped<CMSPageService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

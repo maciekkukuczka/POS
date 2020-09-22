@@ -7,9 +7,9 @@ namespace POS.Models
 
     public class CMSPage : BaseEntity
     {
-        public string PageName { get; set; }
+        public string Name { get; set; }
         public string Title { get; set; }
-        public string Description { get; set; }
+        public string Content { get; set; }
 
         public int AppUserId { get; set; }
         public virtual AppUser AppUser { get; set; }

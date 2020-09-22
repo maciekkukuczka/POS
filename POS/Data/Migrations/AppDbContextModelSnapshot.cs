@@ -305,12 +305,14 @@ namespace POS.Migrations
                     .HasColumnType("int");
 
                 b.Property<string>("City")
+                    .IsRequired()
                     .HasColumnType("nvarchar(max)");
 
                 b.Property<string>("Class")
                     .HasColumnType("nvarchar(max)");
 
                 b.Property<string>("Code")
+                    .IsRequired()
                     .HasColumnType("nvarchar(max)");
 
                 b.Property<string>("Comments")
@@ -326,12 +328,14 @@ namespace POS.Migrations
                     .HasColumnType("bit");
 
                 b.Property<string>("Line1")
+                    .IsRequired()
                     .HasColumnType("nvarchar(max)");
 
                 b.Property<string>("Line2")
                     .HasColumnType("nvarchar(max)");
 
                 b.Property<string>("Name")
+                    .IsRequired()
                     .HasColumnType("nvarchar(max)");
 
                 b.HasKey("Id");
@@ -424,7 +428,7 @@ namespace POS.Migrations
                 b.Property<string>("Class")
                     .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Description")
+                b.Property<string>("Content")
                     .HasColumnType("nvarchar(max)");
 
                 b.Property<bool>("IsActive")
@@ -433,7 +437,7 @@ namespace POS.Migrations
                 b.Property<bool>("IsVisible")
                     .HasColumnType("bit");
 
-                b.Property<string>("PageName")
+                b.Property<string>("Name")
                     .HasColumnType("nvarchar(max)");
 
                 b.Property<string>("Title")
@@ -460,6 +464,7 @@ namespace POS.Migrations
                     .HasColumnType("nvarchar(max)");
 
                 b.Property<string>("ContactInformation")
+                    .IsRequired()
                     .HasColumnType("nvarchar(max)");
 
                 b.Property<int>("ContactTypeId")
@@ -647,6 +652,7 @@ namespace POS.Migrations
                     .HasColumnType("bit");
 
                 b.Property<string>("Name")
+                    .IsRequired()
                     .HasColumnType("nvarchar(max)");
 
                 b.HasKey("Id");
