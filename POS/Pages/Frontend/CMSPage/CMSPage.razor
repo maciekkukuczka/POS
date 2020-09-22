@@ -1,18 +1,27 @@
-﻿@page "/CMS/{PageRoute}"
+﻿@page "/{PageRoute}"
 
 @inherits CMSPageComponentBase
 
 
 
-@if (Items == null)
+@if (Items == null || Model == null)
 {
     <em>Moment kurła...</em>
 }
 else
 {
-    <div class="container-fluid d-flex flex-column back">
+    <div class="container-fluid">
 
-        @Display
+        <div class="card w-100">
+            <div class="card-body">
+                <h5 class="card-title">@Model.Title</h5>
+                <h6 class="card-subtitle mb-2 text-muted">@Model.AppUser.NickName</h6>
+                <p class="card-text">@Model.Content</p>
+                @* <a href="#" class="card-link">Card link</a> *@
+                @* <a href="#" class="card-link">Another link</a> *@
+            </div>
+        </div>
+
 
     </div>
 }

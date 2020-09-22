@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using POS.Data;
 using POS.Models;
 using POS.Repositories.Base;
@@ -16,11 +17,12 @@ namespace POS.Services
         protected override DbSet<CMSPage> DbSet => _db.CmsPages;
 
 
-        // public IQueryable<CMSPage> GetAllActiveContactsByUser(int id)
-        // {
-        //     return DbSet.Where(x => x.IsActive )
-        //         .AsQueryable();
-        // }
+        public IQueryable<CMSPage> GetAllActiveCmsPages()
+        {
+            return DbSet.Where(x => x.IsActive)
+                .Include(x => x.AppUser)
+                .AsQueryable();
+        }
 
         // public IQueryable<Blood> GetBloods(bool isVisible = true, bool isActive = true)
         // {

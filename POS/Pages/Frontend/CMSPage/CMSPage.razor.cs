@@ -17,7 +17,7 @@ namespace POS.Pages.Frontend.CMSPage
         protected string Display;
 
         //Models
-        protected Models.CMSPage Model;
+        protected Models.CMSPage Model = new Models.CMSPage();
         protected List<Models.CMSPage> Items;
 
         //Services
@@ -32,21 +32,21 @@ namespace POS.Pages.Frontend.CMSPage
 
             _cmsPageService = (CMSPageService) ScopedServices.GetRequiredService(typeof(CMSPageService));
 
-            Items = await _cmsPageService.GetAllActive().ToListAsync();
+            Items = await _cmsPageService.GetAllActiveCmsPages().ToListAsync();
         }
 
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
 
-            if (PageRoute == "s1")
+            foreach (var cmsPage in Items)
             {
-                Display = "s1";
+                if (PageRoute == cmsPage.Name)
+                {
+                    Model = cmsPage;
+                }
             }
-            else
-            {
-                Display = "sinne";
-            }
+
 
             // StateHasChanged();
         }
