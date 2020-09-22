@@ -24,7 +24,7 @@ namespace POS.Pages.Admin.Team
         protected List<AppUser> Items;
         protected List<Models.Blood> Bloods;
         protected List<Models.Rank> Ranks;
-        protected List<GamesGroup> GamesGroups;
+        protected List<Models.GamesGroup> GamesGroups;
 
 
         // protected List<string> ImageUrls=new List<string>();
@@ -59,7 +59,7 @@ namespace POS.Pages.Admin.Team
 
             // Model.Blood = new Blood();
             // Model.Rank = new Models.Rank();
-            Model.GamesGroups = new List<GamesGroup>();
+            Model.GamesGroups = new List<Models.GamesGroup>();
             Model.Addresses = new List<Models.Address>();
 
             _showAdd = true;
@@ -123,9 +123,9 @@ namespace POS.Pages.Admin.Team
             Model.Avatar.Path = imagesDataUrls.First();
         }
 
-        protected void GamesGroupCheckboxOnChange(GamesGroup gamesGroup, ChangeEventArgs e)
+        protected void GamesGroupCheckboxOnChange(Models.GamesGroup gamesGroup, ChangeEventArgs e)
         {
-            if (Model.GamesGroups == null) Model.GamesGroups = new List<GamesGroup>();
+            if (Model.GamesGroups == null) Model.GamesGroups = new List<Models.GamesGroup>();
 
             if (!Model.GamesGroups.Contains(gamesGroup))
             {

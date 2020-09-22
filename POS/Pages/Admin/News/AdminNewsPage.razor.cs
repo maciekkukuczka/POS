@@ -21,7 +21,7 @@ namespace POS.Pages.Admin.News
         protected Models.News Model;
         protected List<Models.News> Items;
         protected List<AppUser> AppUsers;
-        protected List<GamesGroup> GamesGroups;
+        protected List<Models.GamesGroup> GamesGroups;
         protected List<Image> Images;
 
         // protected List<string> ImageUrls=new List<string>();
@@ -53,7 +53,7 @@ namespace POS.Pages.Admin.News
             Model = new Models.News();
 
             // Model.AppUser = new AppUser();
-            Model.GamesGroups = new List<GamesGroup>();
+            Model.GamesGroups = new List<Models.GamesGroup>();
             Model.Images = new List<Image>();
 
             _showAdd = true;
@@ -120,7 +120,7 @@ namespace POS.Pages.Admin.News
             });
         }
 
-        protected void GamesGroupCheckboxOnChange(GamesGroup gamesGroup, ChangeEventArgs e)
+        protected void GamesGroupCheckboxOnChange(Models.GamesGroup gamesGroup, ChangeEventArgs e)
         {
             if (!Model.GamesGroups.Contains(gamesGroup))
             {
