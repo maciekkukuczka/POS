@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using POS.Services;
 
 
-namespace POS.Pages.Admin.Contact
+namespace POS.Pages.Admin.CMSPage
 {
 
     public class AdminCMSPageComponentBase : OwningComponentBase
@@ -24,8 +24,6 @@ namespace POS.Pages.Admin.Contact
         private CMSPageService _cmsPageService;
         private AppUserService _appUserService;
 
-        //Parameters
-        [Parameter] public int UserId { get; set; }
 
         protected async override Task OnInitializedAsync()
         {
@@ -42,7 +40,6 @@ namespace POS.Pages.Admin.Contact
         {
             Model = new Models.CMSPage();
 
-            Model.AppUserId = UserId;
             _showAdd = true;
             _isButtonAddVisible = false;
         }

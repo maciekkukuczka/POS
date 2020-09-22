@@ -1,0 +1,18 @@
+﻿@page "/CMS/{PageRoute}"
+
+@inherits CMSPageComponentBase
+
+
+
+@if (Items == null)
+{
+    <em>Moment kurła...</em>
+}
+else
+{
+    <div class="container-fluid d-flex flex-column back">
+
+        @Display
+
+    </div>
+}

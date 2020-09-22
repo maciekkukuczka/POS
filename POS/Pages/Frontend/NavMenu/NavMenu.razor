@@ -1,4 +1,6 @@
-﻿<div>
+﻿@inject NavigationManager NavigationManager
+
+<div>
     <ul class="nav ">
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
@@ -30,6 +32,17 @@
                 <span class="oi oi-plus" aria-hidden="true"></span> Nasza historia
             </NavLink>
         </li>
+
+        @foreach (var link in links)
+        {
+            <li class="nav-item px-3">
+                <button class="nav-link" @onclick="@(() => { GoTo(link); })">
+                    <span class="oi oi-plus" aria-hidden="true"></span> @link
+                </button>
+            </li>
+        }
+
+
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="Admin">
                 <span class="oi oi-plus" aria-hidden="true"></span> Admin
@@ -38,3 +51,25 @@
 
     </ul>
 </div>
+
+@code{
+
+
+    List<string> links = new List<string>();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        links.Add("s1");
+        links.Add("s2");
+        links.Add("s3");
+    }
+
+    void GoTo(string link)
+    {
+        var uri = $"CMS\\{link}";
+        NavigationManager.NavigateTo(uri);
+    }
+
+}
