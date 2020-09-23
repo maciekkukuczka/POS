@@ -1,4 +1,6 @@
 ﻿@page "/Gallery"
+@attribute    [Authorize(Roles = "Admin,User")]
+
 <h3>GalleryPage</h3>
 
 <GalleryComponent/>

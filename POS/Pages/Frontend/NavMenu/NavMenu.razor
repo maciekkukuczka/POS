@@ -3,115 +3,67 @@
 @inherits OwningComponentBase
 @inject NavigationManager NavigationManager
 
-<AuthorizeView Roles="Admin">
-    <Authorized >
 
-        <div>
-            <ul class="nav ">
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Home
-                    </NavLink>
-                </li>
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="Gallery">
-                        <span class="oi oi-plus" aria-hidden="true"></span> Galeria
-                    </NavLink>
-                </li>
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="Team">
-                        <span class="oi oi-plus" aria-hidden="true"></span> Zespół
-                    </NavLink>
-                </li>
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="Recruitmant">
-                        <span class="oi oi-plus" aria-hidden="true"></span> Rekrutacja
-                    </NavLink>
-                </li>
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="Forum">
-                        <span class="oi oi-plus" aria-hidden="true"></span> Forum
-                    </NavLink>
-                </li>
-                @* <li class="nav-item px-3"> *@
-                @*     <NavLink class="nav-link" href="History"> *@
-                @*         <span class="oi oi-plus" aria-hidden="true"></span> Nasza historia *@
-                @*     </NavLink> *@
-                @* </li> *@
+<div>
+    <ul class="nav ">
 
-                @if (items != null)
-                {
-                    @foreach (var cmsPage in items)
-                    {
-                        <li class="nav-item px-3">
-                            <NavLink class="nav-link" href="@cmsPage.Name">
-                                <span class="oi oi-plus" aria-hidden="true"></span> @cmsPage.Name
-                            </NavLink>
-                        </li>
-                    }
-                }
+        <AuthorizeView Roles="Admin, User">
 
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> Home
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="Gallery">
+                    <span class="oi oi-plus" aria-hidden="true"></span> Galeria
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="Team">
+                    <span class="oi oi-plus" aria-hidden="true"></span> Zespół
+                </NavLink>
+            </li>
+        </AuthorizeView>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="Recruitmant">
+                <span class="oi oi-plus" aria-hidden="true"></span> Rekrutacja
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="Forum">
+                <span class="oi oi-plus" aria-hidden="true"></span> Forum
+            </NavLink>
+        </li>
+        @* <li class="nav-item px-3"> *@
+        @*     <NavLink class="nav-link" href="History"> *@
+        @*         <span class="oi oi-plus" aria-hidden="true"></span> Nasza historia *@
+        @*     </NavLink> *@
+        @* </li> *@
+
+        @if (items != null)
+        {
+            @foreach (var cmsPage in items)
+            {
                 <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="Admin">
-                        <span class="oi oi-plus" aria-hidden="true"></span> Admin
+                    <NavLink class="nav-link" href="@cmsPage.Name">
+                        <span class="oi oi-plus" aria-hidden="true"></span> @cmsPage.Name
                     </NavLink>
                 </li>
-            </ul>
-        </div>
+            }
+        }
+        <AuthorizeView Roles="Admin">
 
-    </Authorized>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="Admin">
+                    <span class="oi oi-plus" aria-hidden="true"></span> Admin
+                </NavLink>
+            </li>
+        </AuthorizeView>
+    </ul>
+</div>
 
-    <NotAuthorized>
-        <div>
-            <ul class="nav ">
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Home
-                    </NavLink>
-                </li>
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="Gallery">
-                        <span class="oi oi-plus" aria-hidden="true"></span> Galeria
-                    </NavLink>
-                </li>
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="Team">
-                        <span class="oi oi-plus" aria-hidden="true"></span> Zespół
-                    </NavLink>
-                </li>
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="Recruitmant">
-                        <span class="oi oi-plus" aria-hidden="true"></span> Rekrutacja
-                    </NavLink>
-                </li>
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="Forum">
-                        <span class="oi oi-plus" aria-hidden="true"></span> Forum
-                    </NavLink>
-                </li>
-                @* <li class="nav-item px-3"> *@
-                @*     <NavLink class="nav-link" href="History"> *@
-                @*         <span class="oi oi-plus" aria-hidden="true"></span> Nasza historia *@
-                @*     </NavLink> *@
-                @* </li> *@
-
-                @if (items != null)
-                {
-                    @foreach (var cmsPage in items)
-                    {
-                        <li class="nav-item px-3">
-                            <NavLink class="nav-link" href="@cmsPage.Name">
-                                <span class="oi oi-plus" aria-hidden="true"></span> @cmsPage.Name
-                            </NavLink>
-                        </li>
-                    }
-                }
-
-
-            </ul>
-        </div>
-    </NotAuthorized>
-</AuthorizeView>
 
 @code{
 

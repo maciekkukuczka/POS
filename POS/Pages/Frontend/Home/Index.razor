@@ -1,9 +1,47 @@
 ﻿@page "/"
+@inject NavigationManager NavigationManager
 
 
 <h3>Home</h3>
 
 <NewsComponent/>
 
+
+@if (userState != null)
+{
+    <p> @userState.User.Identity.Name </p>
+
+    @foreach (var item in userState.User.Claims)
+    {
+        <p> @item.Type</p>
+        <p> @item.Value</p>
+    }
+}
+
+@code{
+
+    [CascadingParameter]
+    private Task<AuthenticationState> _authState { get; set; }
+    private AuthenticationState userState;
+
+    // return base.OnInitializedAsync();
+    protected override async Task OnInitializedAsync()
+    {
+        userState = await _authState;
+
+
+        if (userState.User.Identity.IsAuthenticated == false)
+        {
+            NavigationManager.NavigateTo("/splash");
+        }
+
+    // else if (userState.User.Identity.IsAuthenticated==true)
+    // {
+    //     
+    // }
+    }
+
+
+}
 
 
