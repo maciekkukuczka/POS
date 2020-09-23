@@ -1,54 +1,61 @@
 ﻿@inherits NewsComponentBase
 
-@if (Items == null)
-{
-    <em>Wczytuje...</em>
-}
-else
-{
-    <div class="container">
-        <div class="row">
-            <div class="col d-flex flex-column align-items-center">
+<AuthorizeView>
+    <Authorized>
 
-                @foreach (var item in Items)
-                {
-                    <div class="card w-75 my-3">
-                        @if (item.Images != null && item.Images.Count > 0)
+        @if (Items == null)
+        {
+            <em>Wczytuje...</em>
+        }
+        else
+        {
+            <div class="container">
+                <div class="row">
+                    <div class="col d-flex flex-column align-items-center">
+
+                        @foreach (var item in Items)
                         {
-                            <div class="w-100 text-center">
-                                <img src="@item.Images.FirstOrDefault().Path" alt="Card image cap">
+                            <div class="card w-75 my-3">
+                                @if (item.Images != null && item.Images.Count > 0)
+                                {
+                                    <div class="w-100 text-center">
+                                        <img src="@item.Images.FirstOrDefault().Path" alt="Card image cap">
+                                    </div>
+                                }
+                                <div class="card-body">
+                                    <h5 class="card-title">@item.Title</h5>
+                                    <p class="card-text">
+                                        @item.Content
+                                    </p>
+                                    <div class="d-flex justify-content-end">
+                                        <a href="#" class="btn btn-outline-primary ">Więcej...</a>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-muted d-flex justify-content-between">
+                                    <div > @item.Date</div>
+                                    <div >
+
+                                        @foreach (var itemGamesGroup in item.GamesGroups)
+                                        {
+                                            @if (item.GamesGroups.Count > 1)
+                                            {
+                                                <span>@($"{@itemGamesGroup.Name}, ")</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@itemGamesGroup.Name</span>
+                                            }
+                                        }
+                                    </div>
+                                    <div > @item.AppUser.NickName</div>
+                                </div>
                             </div>
                         }
-                        <div class="card-body">
-                            <h5 class="card-title">@item.Title</h5>
-                            <p class="card-text">
-                                @item.Content
-                            </p>
-                            <div class="d-flex justify-content-end">
-                                <a href="#" class="btn btn-outline-primary ">Więcej...</a>
-                            </div>
-                        </div>
-                        <div class="card-footer text-muted d-flex justify-content-between">
-                            <div > @item.Date</div>
-                            <div >
-
-                                @foreach (var itemGamesGroup in item.GamesGroups)
-                                {
-                                    @if (item.GamesGroups.Count > 1)
-                                    {
-                                        <span>@($"{@itemGamesGroup.Name}, ")</span>
-                                    }
-                                    else
-                                    {
-                                        <span>@itemGamesGroup.Name</span>
-                                    }
-                                }
-                            </div>
-                            <div > @item.AppUser.NickName</div>
-                        </div>
                     </div>
-                }
+                </div>
             </div>
-        </div>
-    </div>
-}
+        }
+    </Authorized>
+    <NotAuthorized>
+    </NotAuthorized>
+</AuthorizeView>

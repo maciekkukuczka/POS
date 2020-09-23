@@ -1,4 +1,7 @@
 ﻿@page "/Admin/Dictionaries"
+@attribute     [Authorize(Roles = "Admin")]
+
+
 <h3>Słowniki</h3>
 <AdminContactTypeComponent/>
 <AdminRankComponent/>
