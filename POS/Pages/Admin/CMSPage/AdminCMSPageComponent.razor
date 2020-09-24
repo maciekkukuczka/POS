@@ -63,7 +63,7 @@ else
                                     <option value="0" disabled>Wybierz autora...</option>
                                     @foreach (var user in Users)
                                     {
-                                        <option value="@user.Id">@user.NickName</option>
+                                        <option value="@user.Id">@user.UserName</option>
                                     }
                                 </InputSelect>
                                 <ValidationMessage For="() => Model.AppUserId"/>
@@ -112,7 +112,7 @@ else
                         <td>@item.Name</td>
                         <td>@item.Title</td>
                         <td>@item.Content</td>
-                        <td>@item.AppUser.NickName</td>
+                        <td>@item.AppUser.UserName</td>
 
                         <td>
                             <button type="button" class="btn btn-outline-warning" @onclick="() => { Edit(item); }">Edytuj</button>

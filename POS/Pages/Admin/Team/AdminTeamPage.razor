@@ -57,10 +57,16 @@ else
                                         </div>
                                     }
 
+                                    @* Email <InputText>  *@
+                                    <div class="mb-3">
+                                        <InputText class="form-control " placeholder="Email" @bind-Value="Model.Email"/>
+                                        <ValidationMessage For="() => Model.Email"/>
+                                    </div>
+
                                     @* NickName <InputText>  *@
                                     <div class="mb-3">
-                                        <InputText class="form-control " placeholder="Nick" @bind-Value="Model.NickName"/>
-                                        <ValidationMessage For="() => Model.NickName"/>
+                                        <InputText class="form-control " placeholder="Nick" @bind-Value="Model.UserName"/>
+                                        <ValidationMessage For="() => Model.UserName"/>
                                     </div>
 
                                     @* First Name <InputText> *@
@@ -203,7 +209,7 @@ else
                             </div>
                         }
                     </td>
-                    <td>@item.NickName</td>
+                    <td>@item.UserName</td>
                     <td>@item.FullName</td>
                     <td>@item.Blood.Name</td>
                     <td>@item.Rank.Name</td>

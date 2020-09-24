@@ -21,6 +21,7 @@ namespace POS.Pages.Admin.Team
 
         protected bool _showAdd = false;
         protected bool _isButtonAddVisible = true;
+        protected bool IsNew = false;
 
         //Models
         protected AppUser Model;
@@ -73,6 +74,7 @@ namespace POS.Pages.Admin.Team
 
         protected void Add()
         {
+            IsNew = true;
             Model = new AppUser();
 
             // Model.Avatar = new Image();
@@ -81,7 +83,8 @@ namespace POS.Pages.Admin.Team
             // Model.Rank = new Models.Rank();
             Model.GamesGroups = new List<Models.GamesGroup>();
             Model.Addresses = new List<Models.Address>();
-            Model.Id = "0";
+
+            // Model.Id = Model.Id.ToString();
 
             _showAdd = true;
             _isButtonAddVisible = false;
@@ -92,8 +95,6 @@ namespace POS.Pages.Admin.Team
             _showAdd = true;
             _isButtonAddVisible = false;
             Model = item;
-
-            var result = await _userManager.UpdateAsync(item);
         }
 
         protected async Task Hide(AppUser item)
@@ -107,24 +108,30 @@ namespace POS.Pages.Admin.Team
 
         protected async Task ValidSubmit()
         {
-            if (Model.Id == "0")
+            if (IsNew)
             {
+                if (string.IsNullOrWhiteSpace(Model.UserName))
+                {
+                    Model.UserName = Model.Email;
+                }
+
                 // var result = await _appUserService.AddAsync(Model);
                 var result = await _userManager.CreateAsync(Model);
-                await SaveAsync();
             }
             else
             {
                 // var result = await _appUserService.UpdateAsync(Model);
                 var result = await _userManager.UpdateAsync(Model);
-                await SaveAsync();
             }
+
+            await SaveAsync();
         }
 
         private async Task SaveAsync()
         {
             Items = await GetAll();
             _showAdd = false;
+            IsNew = false;
         }
 
         protected void Close()

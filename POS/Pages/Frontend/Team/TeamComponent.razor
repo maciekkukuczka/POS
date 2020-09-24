@@ -1,4 +1,6 @@
 ﻿@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Identity;
+
 @* @inherits OwningComponentBase<POS.Services.AppUserService> *@
 
 @inject UserManager<AppUser> UserManager
@@ -24,7 +26,7 @@ else
                             {
                                 <img class="img-fluid" src="@item.Avatar.Path" alt="">
                             }
-                            <h5 class="card-title">@item.NickName</h5>
+                            <h5 class="card-title">@item.UserName</h5>
 
                             <p class="card-text">Imie Nazwisko: @item.FullName</p>
                             <p class="card-text">

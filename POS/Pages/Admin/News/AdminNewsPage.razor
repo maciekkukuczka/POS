@@ -79,7 +79,7 @@ else
                                 @foreach (var item in AppUsers)
                                 {
                                     <option value="@item.Id">
-                                        @item.NickName
+                                        @item.UserName
                                     </option>
                                 }
                             </InputSelect>
@@ -220,7 +220,7 @@ else
                     <td>@item.Date</td>
                     <td>@item.Title</td>
                     <td>@item.Content</td>
-                    <td>@item.AppUser.NickName</td>
+                    <td>@item.AppUser.UserName</td>
                     <td>
                         @foreach (var gamesGroup in item.GamesGroups)
                         {

@@ -2,6 +2,8 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using POS.Data;
 
 
@@ -324,10 +326,6 @@ namespace POS.Migrations
 
                 b.Property<DateTimeOffset?>("LockoutEnd")
                     .HasColumnType("datetimeoffset");
-
-                b.Property<string>("NickName")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
 
                 b.Property<string>("NormalizedEmail")
                     .HasMaxLength(256)

@@ -83,7 +83,8 @@ namespace POS.Areas.Identity.Pages.Account
                 {
                     UserName = Input.Email,
                     Email = Input.Email,
-                    NickName = "",
+
+                    // NickName = "",
                     BloodId = 2,
                     RankId = 1
                 };
