@@ -25,7 +25,7 @@ namespace POS.Services
 
         public IQueryable<Address> GetAllActiveAddressesByUser(string id)
         {
-            return DbSet.Where(x => x.IsActive && x.AppUserId.ToString() == id)
+            return DbSet.Where(x => x.IsActive && x.AppUserId == int.Parse(id))
                 .AsQueryable();
         }
 
