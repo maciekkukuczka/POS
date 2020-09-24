@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using POS.Models;
 using POS.Services;
 
 
@@ -12,6 +14,8 @@ namespace POS.Pages.Admin.CMSPage
     public class AdminCMSPageComponentBase : OwningComponentBase
 
     {
+        [Inject] private UserManager<AppUser> _userManager { get; set; }
+
         protected bool _showAdd = false;
         protected bool _isButtonAddVisible = true;
 
@@ -22,7 +26,8 @@ namespace POS.Pages.Admin.CMSPage
 
         //Services
         private CMSPageService _cmsPageService;
-        private AppUserService _appUserService;
+
+        // private AppUserService _appUserService;
 
 
         protected async override Task OnInitializedAsync()
@@ -30,10 +35,26 @@ namespace POS.Pages.Admin.CMSPage
             // return base.OnInitializedAsync();
 
             _cmsPageService = (CMSPageService) ScopedServices.GetRequiredService(typeof(CMSPageService));
-            _appUserService = (AppUserService) ScopedServices.GetRequiredService(typeof(AppUserService));
+
+            // _appUserService = (AppUserService) ScopedServices.GetRequiredService(typeof(AppUserService));
 
             Items = await _cmsPageService.GetAllActive().ToListAsync();
-            Users = await _appUserService.GetAllActive().ToListAsync();
+            Users = await GetAll();
+        }
+
+        protected async Task<List<AppUser>> GetAll()
+        {
+            Users = await _userManager.Users
+                .Include(x => x.Blood)
+                .Include(x => x.Rank)
+                .Include(x => x.Avatar)
+                .Include(x => x.Addresses)
+                .Include(x => x.GamesGroups)
+                .Include(x => x.Contacts)
+                .ThenInclude(x => x.ContactType)
+                .ToListAsync();
+
+            return Users;
         }
 
         protected void Add()

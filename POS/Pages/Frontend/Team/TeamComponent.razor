@@ -1,6 +1,6 @@
 ﻿@using Microsoft.EntityFrameworkCore
-@using POS.Services
-@inherits OwningComponentBase<POS.Services.AppUserService>
+@* @inherits OwningComponentBase<POS.Services.AppUserService> *@
+@inject UserManager<AppUser> UserManager
 
 <h3>Zespół</h3>
 
@@ -106,13 +106,28 @@ else
     private AppUser Model;
     private List<AppUser> Items;
 
-    private AppUserService _appUserService;
+    // private AppUserService _appUserService;
 
     protected override async Task OnInitializedAsync()
     {
     // return base.OnInitializedAsync();
 
-        Items = await Service.GetAllActiveUsers().ToListAsync();
+        Items = await GetAll();
+    }
+
+    protected async Task<List<AppUser>> GetAll()
+    {
+        Items = await UserManager.Users
+            .Include(x => x.Blood)
+            .Include(x => x.Rank)
+            .Include(x => x.Avatar)
+            .Include(x => x.Addresses)
+            .Include(x => x.GamesGroups)
+            .Include(x => x.Contacts)
+            .ThenInclude(x => x.ContactType)
+            .ToListAsync();
+
+        return Items;
     }
 
 }

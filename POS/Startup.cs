@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using POS.Areas.Identity;
 using POS.Data;
+using POS.Models;
 using POS.Services;
 
 
@@ -31,8 +32,9 @@ namespace POS
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddRoles<IdentityRole>()
+            services.AddIdentity<AppUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+
+                // .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
             services.AddRazorPages();
             services.AddServerSideBlazor();
@@ -58,7 +60,7 @@ namespace POS
             });
 
             // services.AddBootstrapCss();
-            services.AddScoped<AppUserService>();
+            // services.AddScoped<AppUserService>();
             services.AddScoped<NewsService>();
             services.AddScoped<GamesGroupService>();
             services.AddScoped<ImageService>();

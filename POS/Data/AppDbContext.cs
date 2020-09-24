@@ -6,7 +6,7 @@ using POS.Models;
 namespace POS.Data
 {
 
-    public class AppDbContext : IdentityDbContext
+    public class AppDbContext : IdentityDbContext<AppUser>
     {
         // public DbSet<BaseEntity> BaseEntity { get; set; }
         // public DbSet<AuditableEntity> AuditableEntity { get; set; }

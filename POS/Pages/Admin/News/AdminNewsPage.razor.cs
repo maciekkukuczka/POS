@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using POS.Logic.Gallery;
@@ -14,6 +15,9 @@ namespace POS.Pages.Admin.News
 
     public class AdminNewsPageBase : OwningComponentBase
     {
+        [Inject] private UserManager<AppUser> _userManager { get; set; }
+
+
         protected bool _showAdd = false;
         protected bool _isButtonAddVisible = true;
 
@@ -28,7 +32,8 @@ namespace POS.Pages.Admin.News
 
         //Services
         private NewsService _newsService;
-        private AppUserService _appUserService;
+
+        // private AppUserService _appUserService;
         private GamesGroupService _gamesGroupService;
         private ImageService _imageService;
 
@@ -38,14 +43,32 @@ namespace POS.Pages.Admin.News
             // return base.OnInitializedAsync();
 
             _newsService = (NewsService) ScopedServices.GetRequiredService(typeof(NewsService));
-            _appUserService = (AppUserService) ScopedServices.GetRequiredService(typeof(AppUserService));
+
+            // _appUserService = (AppUserService) ScopedServices.GetRequiredService(typeof(AppUserService));
             _gamesGroupService = (GamesGroupService) ScopedServices.GetRequiredService(typeof(GamesGroupService));
             _imageService = (ImageService) ScopedServices.GetRequiredService(typeof(ImageService));
 
             Items = await _newsService.GetAllActiveNews().ToListAsync();
-            AppUsers = await _appUserService.GetAllActiveUsers().ToListAsync();
+
+            // AppUsers = await _appUserService.GetAllActiveUsers().ToListAsync();
+            AppUsers = await GetAll();
             GamesGroups = await _gamesGroupService.GetAllActiveGamesGroups().ToListAsync();
             Images = await _imageService.GetAllActive().ToListAsync();
+        }
+
+        protected async Task<List<AppUser>> GetAll()
+        {
+            AppUsers = await _userManager.Users
+                .Include(x => x.Blood)
+                .Include(x => x.Rank)
+                .Include(x => x.Avatar)
+                .Include(x => x.Addresses)
+                .Include(x => x.GamesGroups)
+                .Include(x => x.Contacts)
+                .ThenInclude(x => x.ContactType)
+                .ToListAsync();
+
+            return AppUsers;
         }
 
         protected void Add()

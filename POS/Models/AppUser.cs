@@ -1,13 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using POS.Models.Base;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace POS.Models
 {
 
-    public class AppUser : BaseEntity
+    public class AppUser : IdentityUser
     {
+        public string Class { get; set; }
+        public bool IsActive { get; set; } = true;
+        public bool IsVisible { get; set; }
+
         [Required(ErrorMessage = "Pole 'NICK' jest wymagane!")]
         public string NickName { get; set; }
         public string FirstName { get; set; }

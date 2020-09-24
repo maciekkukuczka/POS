@@ -23,7 +23,7 @@ namespace POS.Pages.Admin.Address
         private AddressService _addressService;
 
         //Parameters
-        [Parameter] public int UserId { get; set; }
+        [Parameter] public string UserId { get; set; }
 
         protected async override Task OnInitializedAsync()
         {
@@ -38,7 +38,7 @@ namespace POS.Pages.Admin.Address
         {
             Model = new Models.Address();
 
-            Model.AppUserId = UserId;
+            Model.AppUserId = int.Parse(UserId);
             _showAdd = true;
             _isButtonAddVisible = false;
         }
