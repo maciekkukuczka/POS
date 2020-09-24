@@ -9,7 +9,7 @@ namespace POS.Models
     {
         public string Name { get; set; }
 
-        public ICollection<AppUser> Bloods { get; set; }
+        public ICollection<AppUser> AppUsers { get; set; }
     }
 
 }

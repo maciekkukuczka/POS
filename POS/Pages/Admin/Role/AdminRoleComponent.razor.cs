@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using POS.Models;
 
 
 namespace POS.Pages.Admin.Role
@@ -13,7 +14,7 @@ namespace POS.Pages.Admin.Role
 
     {
         [Inject] private RoleManager<IdentityRole> _roleManager { get; set; }
-        [Inject] private UserManager<IdentityUser> _userManager { get; set; }
+        [Inject] private UserManager<AppUser> _userManager { get; set; }
 
         [CascadingParameter] private Task<AuthenticationState> _authState { get; set; }
 

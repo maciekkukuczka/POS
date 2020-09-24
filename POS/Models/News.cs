@@ -15,10 +15,10 @@ namespace POS.Models
         public DateTime Date { get; set; } = DateTime.Now;
         public string Content { get; set; }
 
-        [Required(ErrorMessage = "Pole 'AUTOR' jest wymagane!")]
+        // [Required(ErrorMessage = "Pole 'AUTOR' jest wymagane!")]
 
         // [ValidateComplexType]
-        public int AppUserID { get; set; }
+        public int AppUserId { get; set; }
         public virtual AppUser AppUser { get; set; }
 
         // [Required]
