@@ -128,6 +128,7 @@ else
             .Include(x => x.GamesGroups)
             .Include(x => x.Contacts)
             .ThenInclude(x => x.ContactType)
+            .Where(x => x.IsVisible)
             .ToListAsync();
 
         return Items;
