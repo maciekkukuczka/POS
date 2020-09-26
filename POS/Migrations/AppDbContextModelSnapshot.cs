@@ -404,10 +404,7 @@ namespace POS.Migrations
                     .HasColumnType("int")
                     .UseIdentityColumn();
 
-                b.Property<int>("AppUserId")
-                    .HasColumnType("int");
-
-                b.Property<string>("AppUserId1")
+                b.Property<string>("AppUserId")
                     .HasColumnType("nvarchar(450)");
 
                 b.Property<string>("Class")
@@ -430,7 +427,7 @@ namespace POS.Migrations
 
                 b.HasKey("Id");
 
-                b.HasIndex("AppUserId1");
+                b.HasIndex("AppUserId");
 
                 b.ToTable("CmsPages");
             });
@@ -809,7 +806,7 @@ namespace POS.Migrations
             {
                 b.HasOne("POS.Models.AppUser", "AppUser")
                     .WithMany("CmsPages")
-                    .HasForeignKey("AppUserId1");
+                    .HasForeignKey("AppUserId");
 
                 b.Navigation("AppUser");
             });

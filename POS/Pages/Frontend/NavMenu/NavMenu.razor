@@ -7,8 +7,8 @@
 <div>
     <ul class="nav ">
 
-        <AuthorizeView Roles="Admin, User">
 
+        <AuthorizeView Roles="Admin, User">
             <li class="nav-item px-3">
                 <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                     <span class="oi oi-home" aria-hidden="true"></span> Home
@@ -47,7 +47,7 @@
             @foreach (var cmsPage in items)
             {
                 <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="@cmsPage.Name">
+                    <NavLink class="nav-link" href="@($"CMS/{cmsPage.Name}")">
                         <span class="oi oi-plus" aria-hidden="true"></span> @cmsPage.Name
                     </NavLink>
                 </li>

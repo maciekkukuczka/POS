@@ -1,4 +1,5 @@
 ﻿@page "/"
+@page "/{isQuest:bool}"
 @inject NavigationManager NavigationManager
 
 
@@ -24,13 +25,19 @@
     private Task<AuthenticationState> _authState { get; set; }
     private AuthenticationState userState;
 
+    [Parameter]
+    public bool isQuest { get; set; }
+
     // return base.OnInitializedAsync();
     protected override async Task OnInitializedAsync()
     {
         userState = await _authState;
+    }
 
-
-        if (userState.User.Identity.IsAuthenticated == false)
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        if (userState.User.Identity.IsAuthenticated == false && isQuest == false)
         {
             NavigationManager.NavigateTo("/splash");
         }

@@ -38,7 +38,7 @@ namespace POS.Pages.Admin.CMSPage
 
             // _appUserService = (AppUserService) ScopedServices.GetRequiredService(typeof(AppUserService));
 
-            Items = await _cmsPageService.GetAllActive().ToListAsync();
+            Items = await _cmsPageService.GetAllActiveCmsPages().ToListAsync();
             Users = await GetAll();
         }
 
