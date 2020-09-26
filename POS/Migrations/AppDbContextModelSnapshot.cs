@@ -234,10 +234,7 @@ namespace POS.Migrations
                     .HasColumnType("int")
                     .UseIdentityColumn();
 
-                b.Property<int>("AppUserId")
-                    .HasColumnType("int");
-
-                b.Property<string>("AppUserId1")
+                b.Property<string>("AppUserId")
                     .HasColumnType("nvarchar(450)");
 
                 b.Property<string>("City")
@@ -276,7 +273,7 @@ namespace POS.Migrations
 
                 b.HasKey("Id");
 
-                b.HasIndex("AppUserId1");
+                b.HasIndex("AppUserId");
 
                 b.ToTable("Addresses");
             });
@@ -445,10 +442,7 @@ namespace POS.Migrations
                     .HasColumnType("int")
                     .UseIdentityColumn();
 
-                b.Property<int>("AppUserId")
-                    .HasColumnType("int");
-
-                b.Property<string>("AppUserId1")
+                b.Property<string>("AppUserId")
                     .HasColumnType("nvarchar(450)");
 
                 b.Property<string>("Class")
@@ -469,7 +463,7 @@ namespace POS.Migrations
 
                 b.HasKey("Id");
 
-                b.HasIndex("AppUserId1");
+                b.HasIndex("AppUserId");
 
                 b.HasIndex("ContactTypeId");
 
@@ -596,10 +590,7 @@ namespace POS.Migrations
                     .HasColumnType("int")
                     .UseIdentityColumn();
 
-                b.Property<int>("AppUserId")
-                    .HasColumnType("int");
-
-                b.Property<string>("AppUserId1")
+                b.Property<string>("AppUserId")
                     .HasColumnType("nvarchar(450)");
 
                 b.Property<string>("Class")
@@ -624,7 +615,7 @@ namespace POS.Migrations
 
                 b.HasKey("Id");
 
-                b.HasIndex("AppUserId1");
+                b.HasIndex("AppUserId");
 
                 b.ToTable("Newses");
             });
@@ -784,7 +775,7 @@ namespace POS.Migrations
             {
                 b.HasOne("POS.Models.AppUser", "AppUser")
                     .WithMany("Addresses")
-                    .HasForeignKey("AppUserId1");
+                    .HasForeignKey("AppUserId");
 
                 b.Navigation("AppUser");
             });
@@ -827,7 +818,7 @@ namespace POS.Migrations
             {
                 b.HasOne("POS.Models.AppUser", "AppUser")
                     .WithMany("Contacts")
-                    .HasForeignKey("AppUserId1");
+                    .HasForeignKey("AppUserId");
 
                 b.HasOne("POS.Models.ContactType", "ContactType")
                     .WithMany()
@@ -844,7 +835,7 @@ namespace POS.Migrations
             {
                 b.HasOne("POS.Models.AppUser", "AppUser")
                     .WithMany("Newses")
-                    .HasForeignKey("AppUserId1");
+                    .HasForeignKey("AppUserId");
 
                 b.Navigation("AppUser");
             });

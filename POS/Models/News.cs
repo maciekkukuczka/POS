@@ -18,7 +18,7 @@ namespace POS.Models
         // [Required(ErrorMessage = "Pole 'AUTOR' jest wymagane!")]
 
         // [ValidateComplexType]
-        public int AppUserId { get; set; }
+        public string AppUserId { get; set; }
         public virtual AppUser AppUser { get; set; }
 
         // [Required]

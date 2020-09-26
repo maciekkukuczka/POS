@@ -17,7 +17,7 @@ namespace POS.Services
         protected override DbSet<Contact> DbSet => _db.Contacts;
 
 
-        public IQueryable<Contact> GetAllActiveContactsByUser(int id)
+        public IQueryable<Contact> GetAllActiveContactsByUser(string id)
         {
             return DbSet.Where(x => x.IsActive && x.AppUserId == id)
                 .Include(x => x.ContactType)

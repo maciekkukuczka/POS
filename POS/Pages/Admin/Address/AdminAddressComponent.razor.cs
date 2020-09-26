@@ -38,7 +38,7 @@ namespace POS.Pages.Admin.Address
         {
             Model = new Models.Address();
 
-            Model.AppUserId = int.Parse(UserId);
+            Model.AppUserId = UserId;
             _showAdd = true;
             _isButtonAddVisible = false;
         }

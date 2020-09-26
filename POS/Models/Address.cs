@@ -25,7 +25,7 @@ namespace POS.Models
 
         public string Comments { get; set; }
 
-        public int AppUserId { get; set; }
+        public string AppUserId { get; set; }
         public virtual AppUser AppUser { get; set; }
     }
 

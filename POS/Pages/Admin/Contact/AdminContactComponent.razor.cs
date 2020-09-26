@@ -34,7 +34,7 @@ namespace POS.Pages.Admin.Contact
             _contactService = (ContactService) ScopedServices.GetRequiredService(typeof(ContactService));
             _contactTypeService = (ContactTypeService) ScopedServices.GetRequiredService(typeof(ContactTypeService));
 
-            Items = await _contactService.GetAllActiveContactsByUser(int.Parse(UserId)).ToListAsync();
+            Items = await _contactService.GetAllActiveContactsByUser(UserId).ToListAsync();
             ContactTypes = await _contactTypeService.GetAllActive().ToListAsync();
         }
 
@@ -42,7 +42,7 @@ namespace POS.Pages.Admin.Contact
         {
             Model = new Models.Contact();
 
-            Model.AppUserId = int.Parse(UserId);
+            Model.AppUserId = UserId;
             _showAdd = true;
             _isButtonAddVisible = false;
         }
@@ -77,7 +77,7 @@ namespace POS.Pages.Admin.Contact
 
         private async Task SaveAsync()
         {
-            Items = await _contactService.GetAllActiveContactsByUser(int.Parse(UserId)).ToListAsync();
+            Items = await _contactService.GetAllActiveContactsByUser(UserId).ToListAsync();
             _showAdd = false;
         }
 

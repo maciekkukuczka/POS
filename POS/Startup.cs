@@ -114,8 +114,8 @@ namespace POS
             //OR (remember add parameter at this method-->IServiceProvider serviceProvider )
 
             // var context = serviceProvider.GetService<AppDbContext>();
-            // context.Database.EnsureDeleted();
-            // context.Database.Migrate();
+            //                                        context.Database.EnsureDeleted();
+            //                                        context.Database.Migrate();
 
             app.UseEndpoints(endpoints =>
             {
