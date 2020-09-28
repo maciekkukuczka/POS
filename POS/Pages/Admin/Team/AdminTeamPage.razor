@@ -1,8 +1,11 @@
 ﻿@page "/Admin/Team"
 @inherits AdminTeamPageBase
 
-
-
+@if (IsVisible)
+{
+    <LoggerComponent IsVisible="@IsVisible" Messages="@LogMessages" IsSucceded="@IsSucceded"
+                     SuccesAlertsImportance="@LoggerComponent.AlertImportance.danger" IsToLog="true"/>
+}
 @if (Items == null || Bloods == null || GamesGroups == null || Ranks == null)
 {
     <em>ładujem siem...</em>
@@ -117,7 +120,10 @@ else
 
 
                                     @* //Games Groups checkbox *@
+
+
                                     <div class="my-3 d-flex justify-content-start">
+
 
 
 
@@ -127,13 +133,13 @@ else
                                             {
                                                 <div class=" form-group form-check mr-3 ">
                                                     <input class="form-check-input ml-0" type="checkbox" id="@gg.Id"
-                                                           @onchange="@((e) => GamesGroupCheckboxOnChange(gg, e))"
-                                                           checked>
+                                                           @onchange="@((e) => GamesGroupCheckboxOnChange(gg, e))" checked>
 
-                                                    <label class="form-check-label p-1" for="@gg.Id">
+                                                    <label class="form-check-label p-1">
                                                         @gg.Name
                                                     </label>
                                                 </div>
+                                                <p>fgfdgdfgdfhgkjfghkgfjhkfgjklhjklgfjkljklfg</p>
                                             }
 
                                             else
@@ -183,6 +189,8 @@ else
                 <th scope="col">Id</th>
                 <th scope="col">Avatar</th>
                 <th scope="col">Nick</th>
+                <th scope="col">Email</th>
+                <th scope="col">Email potwierdzony</th>
                 <th scope="col">Imię nazwisko</th>
                 <th scope="col">Grupa krwi</th>
                 <th scope="col">Ranga</th>
@@ -210,13 +218,23 @@ else
                         }
                     </td>
                     <td>@item.UserName</td>
+                    <td>@item.Email</td>
+                    <td>@item.EmailConfirmed</td>
                     <td>@item.FullName</td>
                     <td>@item.Blood.Name</td>
                     <td>@item.Rank.Name</td>
                     <td>
+
+
+                        @*                         @foreach (var it in GamesGroups.Where(x => x.IsVisible)) *@
+                        @*                         { *@
+                        @*                             @it.Name *@
+                        @*                         } *@
+
+
                         @if (item.GamesGroups != null && item.GamesGroups.Count > 0)
                         {
-                            @foreach (var gamesGroup in item.GamesGroups)
+                            @foreach (var gamesGroup in item.GamesGroups.Where(x => x.IsActive))
                             {
                                 <p>
                                     @gamesGroup.Name

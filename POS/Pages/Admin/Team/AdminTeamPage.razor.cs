@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualStudio.Web.CodeGeneration;
 using POS.Logic.Gallery;
 using POS.Models;
 using POS.Services;
@@ -22,6 +25,11 @@ namespace POS.Pages.Admin.Team
         protected bool _showAdd = false;
         protected bool _isButtonAddVisible = true;
         protected bool IsNew = false;
+
+        //Logger
+        public bool IsVisible = false;
+        public bool IsSucceded = false;
+        protected List<string> LogMessages;
 
         //Models
         protected AppUser Model;
@@ -59,7 +67,7 @@ namespace POS.Pages.Admin.Team
 
         protected async Task<List<AppUser>> GetAll()
         {
-            Items = await _userManager.Users
+            Items = await _userManager.Users.Where(x => x.IsActive)
                 .Include(x => x.Blood)
                 .Include(x => x.Rank)
                 .Include(x => x.Avatar)
@@ -108,6 +116,8 @@ namespace POS.Pages.Admin.Team
 
         protected async Task ValidSubmit()
         {
+            IdentityResult result;
+
             if (IsNew)
             {
                 if (string.IsNullOrWhiteSpace(Model.UserName))
@@ -116,14 +126,15 @@ namespace POS.Pages.Admin.Team
                 }
 
                 // var result = await _appUserService.AddAsync(Model);
-                var result = await _userManager.CreateAsync(Model);
+                result = await _userManager.CreateAsync(Model);
             }
             else
             {
                 // var result = await _appUserService.UpdateAsync(Model);
-                var result = await _userManager.UpdateAsync(Model);
+                result = await _userManager.UpdateAsync(Model);
             }
 
+            // Log(result);
             await SaveAsync();
         }
 
@@ -149,6 +160,21 @@ namespace POS.Pages.Admin.Team
         {
         }
 
+        void Log(IdentityResult result)
+        {
+            if (result != null)
+            {
+                IsSucceded = result.Succeeded;
+
+                foreach (var error in result.Errors)
+                {
+                    LogMessages.Add($"{error.Code}: {error.Description}");
+                }
+
+                IsVisible = true;
+            }
+        }
+
         protected async Task OnInputFileChange(InputFileChangeEventArgs e)
         {
             Model.Avatar = new Image();
@@ -161,13 +187,19 @@ namespace POS.Pages.Admin.Team
         {
             if (Model.GamesGroups == null) Model.GamesGroups = new List<Models.GamesGroup>();
 
-            if (!Model.GamesGroups.Contains(gamesGroup))
+            if ((bool) e.Value)
             {
-                Model.GamesGroups.Add(gamesGroup);
+                if (!Model.GamesGroups.Contains(gamesGroup))
+                {
+                    Model.GamesGroups.Add(gamesGroup);
+                }
             }
             else
             {
-                Model.GamesGroups.Remove(gamesGroup);
+                if (Model.GamesGroups.Contains(gamesGroup))
+                {
+                    Model.GamesGroups.Remove(gamesGroup);
+                }
             }
         }
     }

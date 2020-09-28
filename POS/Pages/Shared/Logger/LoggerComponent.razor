@@ -1,0 +1,102 @@
+﻿@using Microsoft.Extensions.Logging
+@* @using Microsoft.CodeAnalysis *@
+
+@inject ILogger<LoggerComponent> Logger
+
+@if (IsVisible)
+{
+    <div class="alert  @importanceClass" role="alert">
+
+        <strong>@succededDescription</strong>
+        @if (Messages != null)
+        {
+            @foreach (var errorMessage in Messages)
+            {
+                <p>@errorMessage</p>
+            }
+        }
+
+        <button type="button" class="close @(IsVisible ? "d-block" : "d-none")" data-dismiss="alert" aria-label="Close" @onclick="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@code {
+
+    [Parameter]
+    public bool IsVisible { get; set; } = false;
+    [Parameter]
+    public bool IsSucceded { get; set; }
+    [Parameter]
+    public bool IsToLog { get; set; }
+    [Parameter]
+    public AlertImportance SuccesAlertsImportance { get; set; }
+    [Parameter]
+    public List<string> Messages { get; set; }
+
+    private string importanceClass;
+    private string succededDescription;
+
+
+    protected override void OnInitialized()
+    {
+    // return base.OnInitializedAsync();
+        IsVisible = true;
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        if (IsToLog && Messages != null)
+        {
+            Messages.ForEach(x => Logger.LogWarning(x));
+        }
+
+
+        importanceClass = SuccesAlertsImportance switch{
+            AlertImportance.primary=>"alert-primary",
+            AlertImportance.secondary=>"alert-secondary",
+            AlertImportance.success=>"alert-success",
+            AlertImportance.danger=>"alert-danger",
+            AlertImportance.warning=>"alert-warning",
+            AlertImportance.info=>"alert-info",
+            AlertImportance.light=>"alert-light",
+            AlertImportance.dark=>"alert-dark",
+            _=>""
+            };
+
+        if (IsSucceded)
+        {
+            importanceClass = "alert-success";
+            succededDescription = "OK";
+        }
+        else
+        {
+            importanceClass = "alert-danger";
+            succededDescription = "Błąd!";
+        }
+    }
+
+    private void Close()
+    {
+        IsVisible = false;
+    }
+
+    // LogMessage.LogMessage ($"{error.Code}: {error.Description}");
+
+    public enum AlertImportance
+    {
+        primary,
+        secondary,
+        success,
+        danger,
+        warning,
+        info,
+        light,
+        dark
+    }
+
+
+}

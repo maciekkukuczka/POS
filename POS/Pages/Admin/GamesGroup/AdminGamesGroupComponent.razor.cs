@@ -25,13 +25,20 @@ namespace POS.Pages.Admin.GamesGroup
         //Parameters
         [Parameter] public int UserId { get; set; }
 
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             // return base.OnInitializedAsync();
 
             _gamesGroupService = (GamesGroupService) ScopedServices.GetRequiredService(typeof(GamesGroupService));
 
-            Items = await _gamesGroupService.GetAllActive().ToListAsync();
+            Items = await GetAllAsync();
+        }
+
+        private async Task<List<Models.GamesGroup>> GetAllAsync()
+        {
+            var items = await _gamesGroupService.GetAllActiveGamesGroups().ToListAsync();
+
+            return items;
         }
 
         protected void Add()
@@ -72,7 +79,7 @@ namespace POS.Pages.Admin.GamesGroup
 
         private async Task SaveAsync()
         {
-            Items = await _gamesGroupService.GetAllActive().ToListAsync();
+            Items = await GetAllAsync();
             _showAdd = false;
         }
 

@@ -19,7 +19,8 @@ namespace POS.Services
 
         public IQueryable<GamesGroup> GetAllActiveGamesGroups()
         {
-            return DbSet.Where(x => x.IsActive);
+            return DbSet.Where(x => x.IsActive)
+                .Include(x => x.AppUsers);
         }
     }
 
