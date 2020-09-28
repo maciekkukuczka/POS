@@ -26,16 +26,22 @@ namespace POS.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
+        // private readonly RoleManager<IdentityRole> _roleManager;
+
         public RegisterModel(
-            UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager,
-            ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+                UserManager<AppUser> userManager,
+                SignInManager<AppUser> signInManager,
+                ILogger<RegisterModel> logger,
+                IEmailSender emailSender)
+
+            // RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+
+            // _roleManager = roleManager;
         }
 
         [BindProperty] public InputModel Input { get; set; }
@@ -86,12 +92,15 @@ namespace POS.Areas.Identity.Pages.Account
 
                     // NickName = "",
                     BloodId = 2,
-                    RankId = 1
+                    RankId = 4
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
+                    //mac
+                    await _userManager.AddToRoleAsync(user, "Admin");
+
                     _logger.LogInformation("Użytkownik utworzył nowe konto.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
